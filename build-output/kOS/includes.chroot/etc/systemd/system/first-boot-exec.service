@@ -1,0 +1,10 @@
+[Unit]
+Description=First-boot exec script
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/first-boot-exec
+
+[Install]
+WantedBy=multi-user.target

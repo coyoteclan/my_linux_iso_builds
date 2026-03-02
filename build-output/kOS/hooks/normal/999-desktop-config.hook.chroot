@@ -1,0 +1,48 @@
+#!/bin/bash
+set -e
+
+wget -q https://raw.githubusercontent.com/Keyitdev/sddm-astronaut-theme/refs/heads/master/Backgrounds/purple_leaves.png -O /usr/share/backgrounds/purple_leaves.png
+
+# Hack - Since I can't get the wallpaper to apply
+echo "Wallpaper hack"
+mv /usr/share/backgrounds/xfce/xfce-x.svg /usr/share/backgrounds/xfce/xfce-x_original.svg
+ln -s /usr/share/backgrounds/purple_leaves.png /usr/share/backgrounds/xfce/xfce-x.svg
+
+echo "Downloading includes"
+wget -q https://kazam.pages.dev/public/feb.1.26/desktop_includes.7z
+p7zip -d desktop_includes.7z
+cp -r desktop_includes/* /etc/skel/
+ls /etc/skel
+cp -r /etc/skel/* /home/liveuser/
+rm -rf desktop_includes*
+
+fc-cache -fv >> /dev/null
+
+sed -i 's/#ur_PK/ur_PK/g' /etc/locale.gen
+sed -i 's/# ur_PK/ur_PK/g' /etc/locale.gen
+locale-gen
+update-locale
+
+systemctl enable first-boot-exec.service
+
+cat /etc/os-release
+
+mv /etc/os-release /etc/os-release-debian
+
+cat > /etc/os-release << 'EOF'
+PRETTY_NAME="kazamOS 1.0 (wired)"
+NAME="kazamOS"
+VERSION_ID="1"
+VERSION="1 (wired)"
+VERSION_CODENAME=wired
+DEBIAN_VERSION_FULL=13.3
+ID="kazamos"
+LOGO="kazamos-short"
+ID_LIKE=debian
+HOME_URL="https://gitlab.com/kazamOS/"
+SUPPORT_URL="https://gitlab.com/kazamOS/"
+BUG_REPORT_URL="https://gitlab.com/kazamOS/"
+
+EOF
+
+cat /etc/os-release

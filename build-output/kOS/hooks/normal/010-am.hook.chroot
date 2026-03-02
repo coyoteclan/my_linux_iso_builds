@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+
+echo "Installing AM (AppImage Manager)..."
+wget -q https://raw.githubusercontent.com/ivan-hc/AM/main/AM-INSTALLER -O /tmp/AM-INSTALLER
+chmod +x /tmp/AM-INSTALLER
+/tmp/AM-INSTALLER <<EOF
+1
+EOF
+rm /tmp/AM-INSTALLER

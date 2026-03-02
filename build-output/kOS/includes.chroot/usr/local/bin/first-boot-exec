@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo "Running first boot script"
+
+# Update GTK / icon caches
+for d in /usr/share/icons/* /usr/local/share/icons/*; do
+  if [ -f "$d/index.theme" ]; then
+    gtk-update-icon-cache -f -t "$d"
+  fi
+done
+gtk-update-icon-cache -f -t /usr/share/icons/hicolor
+
+# after install /opt/am becomes read-only
+chmod -R 757 /opt/am
+
+systemctl disable first-boot-exec.service || true
+rm /etc/systemd/system/first-boot-exec.service
+rm /usr/local/bin/first-boot-exec

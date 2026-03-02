@@ -1,0 +1,118 @@
+name: MXS Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-iso:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Free up disk space
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf /usr/local/share/boost
+        sudo rm -rf /opt/hostedtoolcache
+        sudo rm -rf /usr/local/lib/android
+        sudo rm -rf /usr/share/swift
+        sudo apt-get clean
+        sudo docker image prune -af
+        sudo df -h
+
+    - name: Build ISO in Debian Trixie container
+      run: |
+        docker run --privileged --rm \
+          -v $PWD/build-output:/output \
+          debian:trixie \
+          /output/sgc/build.sh
+
+    - name: Upload build log
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-log
+        path: build-output/build.log
+        retention-days: 7
+
+    - name: Cleanup build artifacts
+      if: always()
+      run: |
+        ls /home/runner/work/kOS-build/kOS-build/
+        exit 0
+    
+        echo "=== BEFORE CLEANUP ==="
+        df -h .
+        rm -rf binary live chroot cache boot
+        rm -rf config
+        echo "=== AFTER CLEANUP ==="
+        df -h .
+
+    - name: Verify ISO
+      id: iso_name
+      run: |
+        cd build-output
+        ISO_FILE=$(ls *.iso 2>/dev/null | head -n 1 || echo "")
+        if [ -n "$ISO_FILE" ]; then
+          mv $ISO_FILE "sgc.iso"
+          ISO_FILE="sgc.iso"
+          echo "filename=$ISO_FILE" >> $GITHUB_OUTPUT
+          echo "found=true" >> $GITHUB_OUTPUT
+          
+          # Additional ISO verification
+          echo "ISO Details:"
+          ls -lh "$ISO_FILE"
+          file "$ISO_FILE"
+          realpath "$ISO_FILE"
+          
+          # Check if ISO is bootable
+          sudo apt install genisoimage -y
+          if command -v isoinfo &> /dev/null; then
+            echo "ISO Info:"
+            isoinfo -d -i "$ISO_FILE" | grep -E "Volume|System|Boot"
+          fi
+        else
+          echo "No ISO file found!"
+          exit 1
+        fi
+
+    - name: Split ISO into parts
+      run: |
+        cd build-output
+        ls -lah
+    
+        ISO_FILE=$(ls *.iso 2>/dev/null | head -n 1 || echo "")
+        if [ -z "$ISO_FILE" ]; then
+          echo "No ISO file found to split!"
+          exit 1
+        fi
+    
+        echo "Splitting: $ISO_FILE"
+        prefix="${ISO_FILE%.iso}-part."
+        split --numeric-suffixes=1 --suffix-length=3 -b 875M "$ISO_FILE" "${prefix}"
+    
+        echo "Parts created:"
+        ls -lh ${prefix}*
+    
+        sha256sum "$ISO_FILE"
+        sha256sum ${prefix}*
+
+    - name: Setup rclone
+      uses: AnimMouse/setup-rclone@v1
+
+    - name: Upload ISO to remote via rclone
+      env:
+        RCLONE_CONF: ${{ secrets.RCLONE_CONFIG }}
+        RCLONE_REMOTE: "my_pcloud:mxs"
+      run: |
+        mkdir -p ~/.config/rclone
+        echo "$RCLONE_CONF" | base64 -d > ~/.config/rclone/rclone.conf
+        ls -lah build-output
+        # copy the iso to remote
+        for f in build-output/*-part*; do
+          [ -e "$f" ] || continue
+          rclone copy --progress "$f" "$RCLONE_REMOTE/"
+        done

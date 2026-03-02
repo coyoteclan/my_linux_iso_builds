@@ -1,0 +1,79 @@
+#!/bin/bash
+set -e
+
+echo "Downloading Kate Editor"
+wget -q https://cdn.kde.org/ci-builds/utilities/kate/release-25.12/linux/kate-release_25.12-11185-linux-gcc-x86_64.AppImage -O /usr/local/bin/kate
+chmod +x /usr/local/bin/kate
+echo "Kate Editor Installed"
+
+wget -q https://github.com/PixiEditor/PixiEditor/releases/download/2.0.1.19/PixiEditor-2.0.1.19-amd64-linux.deb
+apt install -y ./PixiEditor-2.0.1.19-amd64-linux.deb
+rm PixiEditor-2.0.1.19-amd64-linux.deb
+sed -i 's/Exec=pixieditor/Exec=pixieditor --opengl --system-decorations/g' /usr/share/applications/PixiEditor.desktop
+
+echo "PixiEditor Installed"
+
+echo "Installing KDENLIVE"
+am install kdenlive > /dev/null 2>&1
+echo "KDENLIVE Installed"
+
+echo "Adding wine repo"
+mkdir -pm755 /etc/apt/keyrings
+wget -O - https://dl.winehq.org/wine-builds/winehq.key | gpg --dearmor -o /etc/apt/keyrings/winehq-archive.key -
+dpkg --add-architecture i386
+wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/dists/trixie/winehq-trixie.sources
+
+echo "Adding vscodium repo"
+wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg \
+  | gpg --dearmor \
+  | dd of=/etc/apt/keyrings/vscodium-archive-keyring.gpg
+
+cat > /etc/apt/sources.list.d/vscodium.sources << 'EOF'
+Types: deb
+URIs: https://download.vscodium.com/debs
+Suites: vscodium
+Components: main
+Architectures: amd64 arm64
+Signed-by: /etc/apt/keyrings/vscodium-archive-keyring.gpg
+
+EOF
+
+echo "Adding media-downloader repo"
+echo 'deb http://download.opensuse.org/repositories/home:/obs_mhogomchungu/Debian_13/ /' | tee /etc/apt/sources.list.d/home:obs_mhogomchungu.list
+curl -fsSL https://download.opensuse.org/repositories/home:obs_mhogomchungu/Debian_13/Release.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/home_obs_mhogomchungu.gpg > /dev/null
+
+echo "Adding brave repo"
+curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
+
+echo "Adding lutris repo"
+echo 'deb http://download.opensuse.org/repositories/home:/strycore:/lutris/Debian_13/ /' | tee /etc/apt/sources.list.d/home:strycore:lutris.list
+curl -fsSL https://download.opensuse.org/repositories/home:strycore:lutris/Debian_13/Release.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/home_strycore_lutris.gpg > /dev/null
+
+apt update
+apt install -t wired calamares -y
+apt install calamares-settings-kos donatepage -y
+
+sed -i 's| kazamOS||g' /usr/share/applications/donatepage.desktop
+
+rm /etc/calamares/branding/kazamOS/kazamos-short.png
+rm /etc/calamares/branding/kazamOS/welcome.png
+mv /usr/share/pixmaps/sgc/sgc.png /etc/calamares/branding/kazamOS/kazamos-short.png
+mv /usr/share/pixmaps/sgc/welcome.png /etc/calamares/branding/kazamOS/welcome.png
+rm -rf /usr/share/pixmaps/sgc
+sed -i 's/Icon=install-kazamOS/Icon=install-debian/g' /usr/share/applications/calamares-install-kos.desktop
+sed -i 's/Name=Install kazamOS/Name=Install Debian/g' /usr/share/applications/calamares-install-kos.desktop
+sed -i 's/Comment=Calamares — Installer for kazamOS/Comment=Calamares — Installer for Debian/g' /usr/share/applications/calamares-install-kos.desktop
+
+sed -i 's/productName:         kazamOS/productName:         Debian GNU\/Linux/g' /etc/calamares/branding/kazamOS/branding.desc
+sed -i 's/shortProductName:    kOS/shortProductName:    Debian/g' /etc/calamares/branding/kazamOS/branding.desc
+sed -i 's/    version:             1/    version:             13/g' /etc/calamares/branding/kazamOS/branding.desc
+sed -i 's/shortVersion:        1/shortVersion:        13/g' /etc/calamares/branding/kazamOS/branding.desc
+sed -i 's/    versionedName:       kazamOS 1.0.0/    versionedName:       Debian 13/g' /etc/calamares/branding/kazamOS/branding.desc
+sed -i 's/shortVersionedName:  kazamOS 1/shortVersionedName:  Debian 13/g' /etc/calamares/branding/kazamOS/branding.desc
+sed -i 's/bootloaderEntryName: kazamOS/bootloaderEntryName: Debian/g' /etc/calamares/branding/kazamOS/branding.desc
+
+apt install greengodot kazamos-getting-started media-downloader -y
+
+wget -q https://kazam.pages.dev/public/nov.29/meson_kate_helper -O /usr/bin/meson_kate_helper
+chmod +x /usr/bin/meson_kate_helper

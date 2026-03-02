@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+useradd -m -s /bin/bash -G sudo,video,audio liveuser
+echo "liveuser:live" | chpasswd
+echo "liveuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+systemctl enable NetworkManager

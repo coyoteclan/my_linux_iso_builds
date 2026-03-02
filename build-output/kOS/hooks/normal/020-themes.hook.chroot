@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+echo "Downloading Tela Circle Icon theme"
+apt install -y git
+git clone https://github.com/vinceliuice/Tela-circle-icon-theme --single-branch --depth=1
+(cd Tela-circle-icon-theme;./install.sh -d ../telaicons dracula)
+cp -r telaicons/* /usr/share/icons/
+rm -rf Tela* tela*
+
+git clone https://gitlab.com/kazamOS/kos-kvantum-theme.git --single-branch --depth=1
+cp -r kos-kvantum-theme/kazamOS /usr/share/Kvantum
+rm -rf kos-kvantum-theme
+
+apt autoremove git -y
+
+apt install kos-theme plymouth-theme-kos -y
