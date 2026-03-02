@@ -41,8 +41,6 @@ jobs:
     - name: Cleanup build artifacts
       if: always()
       run: |
-        ls /home/runner/work/kOS-build/kOS-build/
-        exit 0
     
         echo "=== BEFORE CLEANUP ==="
         df -h .
