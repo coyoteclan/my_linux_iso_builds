@@ -2,7 +2,21 @@
 set -e
 
 echo "Downloading Kate Editor"
-wget -q https://cdn.kde.org/ci-builds/utilities/kate/release-25.12/linux/kate-release_25.12-11185-linux-gcc-x86_64.AppImage -O /usr/local/bin/kate
+base="https://cdn.kde.org/ci-builds/utilities/kate/release-25.12/linux/"
+html="$(curl -sS "$base")"
+
+latest=$(printf "%s\n" "$html" \
+  | sed -n 's/.*href="\([^"]*kate-release[^"]*AppImage\)".*/\1/p' \
+  | sort -V \
+  | tail -n1)
+
+if [ -z "$latest" ]; then
+  echo "no AppImage found" >&2
+  exit 1
+fi
+
+kate_url="${base}${latest}"
+wget -q $kate_url -O /usr/local/bin/kate
 chmod +x /usr/local/bin/kate
 echo "Kate Editor Installed"
 
