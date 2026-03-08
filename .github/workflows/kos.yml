@@ -114,3 +114,4 @@ jobs:
           [ -e "$f" ] || continue
           rclone copy --progress "$f" "$RCLONE_REMOTE/"
         done
+        rclone copy --progress "kazamOS.iso" "$RCLONE_REMOTE/"
