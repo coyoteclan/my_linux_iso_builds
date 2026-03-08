@@ -115,4 +115,4 @@ jobs:
           rclone copy --progress "$f" "$RCLONE_REMOTE/"
           rm $f
         done
-        rclone copy --progress "$ISO_FILE" "$RCLONE_REMOTE/"
+        rclone copy --progress "build-output/kazamOS.iso" "$RCLONE_REMOTE/"
