@@ -103,8 +103,8 @@ jobs:
 
     - name: Upload ISO to remote via rclone
       env:
-        RCLONE_CONF: ${{ secrets.RCLONE_CONFIG }}
-        RCLONE_REMOTE: "my_pcloud:mxs"
+        RCLONE_CONF: ${{ secrets.RCLONE_CONFIG_2 }}
+        RCLONE_REMOTE: "my_fichier:mxs"
       run: |
         mkdir -p ~/.config/rclone
         echo "$RCLONE_CONF" | base64 -d > ~/.config/rclone/rclone.conf
