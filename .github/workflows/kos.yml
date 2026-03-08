@@ -113,6 +113,6 @@ jobs:
         for f in build-output/*-part*; do
           [ -e "$f" ] || continue
           rclone copy --progress "$f" "$RCLONE_REMOTE/"
-          sudo rm $f
+          rm $f
         done
-        sudo rclone copy --progress "$ISO_FILE" "$RCLONE_REMOTE/"
+        rclone copy --progress "$ISO_FILE" "$RCLONE_REMOTE/"
