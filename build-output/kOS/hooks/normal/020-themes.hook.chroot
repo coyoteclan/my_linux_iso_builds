@@ -10,4 +10,4 @@ rm -rf Tela* tela*
 
 apt autoremove git -y
 
-apt install kos-theme kos-kvantum-theme plymouth-theme-kos -y
+apt install kos-theme kos-kvantum-theme plymouth-theme-kos oreo-purple-cursors -y
