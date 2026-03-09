@@ -45,5 +45,7 @@ curl -fsSL https://download.opensuse.org/repositories/home:strycore:lutris/Debia
 apt update
 apt install -t wired calamares calamares-settings-kos -y
 apt install kazamos-desktop-base donatepage -y
+cp /etc/skel/.face /home/liveuser/
+(cd /home/liveuser;ln -sf .face .face.icon;chown -R liveuser:liveuser ./*)
 apt install --install-recommends winehq-stable libgl1:i386 libgl1-mesa-dri:i386 -y
 

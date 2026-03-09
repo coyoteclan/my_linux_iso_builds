@@ -14,6 +14,8 @@ p7zip -d desktop_includes.7z
 cp -r desktop_includes/* /etc/skel/
 ls /etc/skel
 cp -r /etc/skel/* /home/liveuser/
+chown -R liveuser:liveuser /home/liveuser/*
+
 rm -rf desktop_includes*
 
 fc-cache -fv >> /dev/null
