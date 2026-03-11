@@ -83,7 +83,7 @@ sed -i 's/productName:         kazamOS/productName:         Debian GNU\/Linux/g'
 sed -i 's/shortProductName:    kOS/shortProductName:    Debian/g' /etc/calamares/branding/kazamOS/branding.desc
 sed -i 's/    version:             1/    version:             13/g' /etc/calamares/branding/kazamOS/branding.desc
 sed -i 's/shortVersion:        1/shortVersion:        13/g' /etc/calamares/branding/kazamOS/branding.desc
-sed -i 's/    versionedName:       kazamOS 1.0.0/    versionedName:       Debian 13/g' /etc/calamares/branding/kazamOS/branding.desc
+sed -i 's/    versionedName:       kazamOS 1.0.1/    versionedName:       Debian 13/g' /etc/calamares/branding/kazamOS/branding.desc
 sed -i 's/shortVersionedName:  kazamOS 1/shortVersionedName:  Debian 13/g' /etc/calamares/branding/kazamOS/branding.desc
 sed -i 's/bootloaderEntryName: kazamOS/bootloaderEntryName: Debian/g' /etc/calamares/branding/kazamOS/branding.desc
 
