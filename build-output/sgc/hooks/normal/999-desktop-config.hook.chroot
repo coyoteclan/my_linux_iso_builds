@@ -26,23 +26,3 @@ update-locale
 systemctl enable first-boot-exec.service
 
 cat /etc/os-release
-
-mv /etc/os-release /etc/os-release-debian
-
-cat > /etc/os-release << 'EOF'
-PRETTY_NAME="kazamOS 1.0 (wired)"
-NAME="kazamOS"
-VERSION_ID="1"
-VERSION="1 (wired)"
-VERSION_CODENAME=wired
-DEBIAN_VERSION_FULL=13.3
-ID="kazamos"
-LOGO="kazamos-short"
-ID_LIKE=debian
-HOME_URL="https://gitlab.com/kazamOS/"
-SUPPORT_URL="https://gitlab.com/kazamOS/"
-BUG_REPORT_URL="https://gitlab.com/kazamOS/"
-
-EOF
-
-cat /etc/os-release
