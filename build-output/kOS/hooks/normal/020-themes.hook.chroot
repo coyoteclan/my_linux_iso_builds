@@ -1,13 +1,4 @@
 #!/bin/bash
 set -e
 
-echo "Downloading Tela Circle Icon theme"
-apt install -y git
-git clone https://github.com/vinceliuice/Tela-circle-icon-theme --single-branch --depth=1
-(cd Tela-circle-icon-theme;./install.sh -d ../telaicons dracula)
-cp -r telaicons/* /usr/share/icons/
-rm -rf Tela* tela*
-
-apt autoremove git -y
-
-apt install kos-theme kos-kvantum-theme plymouth-theme-kos oreo-purple-cursors -y
+apt install kos-theme kos-kvantum-theme plymouth-theme-kos oreo-purple-cursors tela-circle-dracula-icons -y
