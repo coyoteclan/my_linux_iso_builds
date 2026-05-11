@@ -2,18 +2,18 @@
 
 <channel name="xfce4-terminal" version="1.0">
   <property name="font-use-system" type="bool" value="true"/>
-  <property name="color-foreground" type="string" value="#dcdcdc"/>
-  <property name="color-background" type="string" value="#2c2c2c"/>
+  <property name="color-foreground" type="string" value="#ffffff"/>
+  <property name="color-background" type="string" value="#121212"/>
   <property name="color-background-vary" type="bool" value="false"/>
   <property name="color-cursor-foreground" type="string" value=""/>
-  <property name="color-cursor" type="string" value="#dcdcdc"/>
+  <property name="color-cursor" type="string" value="#ffffff"/>
   <property name="color-cursor-use-default" type="bool" value="true"/>
   <property name="color-selection" type="string" value=""/>
   <property name="color-selection-background" type="string" value=""/>
   <property name="color-selection-use-default" type="bool" value="true"/>
   <property name="color-bold" type="string" value=""/>
   <property name="color-bold-use-default" type="bool" value="true"/>
-  <property name="color-palette" type="string" value="#3f3f3f;#705050;#60b48a;#dfaf8f;#9ab8d7;#dc8cc3;#8cd0d3;#dcdcdc;#709080;#dca3a3;#72d5a3;#f0dfaf;#94bff3;#ec93d3;#93e0e3;#ffffff"/>
+  <property name="color-palette" type="string" value="#121212;#eb6a80;#66cd7e;#ffdb72;#bbdc3d;#689f38;#cbe367;#d1cad7;#807b85;#ff9fb0;#9ff6b4;#ffe8a5;#8bc34a;#aed581;#dce775;#fcf8ff"/>
   <property name="color-bold-is-bright" type="bool" value="true"/>
   <property name="color-use-theme" type="bool" value="false"/>
   <property name="tab-activity-color" type="string" value="#aa0000"/>
