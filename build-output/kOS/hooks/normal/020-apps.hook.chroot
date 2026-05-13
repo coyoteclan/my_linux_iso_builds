@@ -49,3 +49,22 @@ cp /etc/skel/.face /home/liveuser/
 (cd /home/liveuser;ln -sf .face .face.icon;chown -R liveuser:liveuser .face*)
 apt install --install-recommends winehq-stable libgl1:i386 libgl1-mesa-dri:i386 -y
 
+
+sudo update-desktop-database /usr/share/applications 2>/dev/null || true
+
+# Write system-wide MIME association instead of user-level
+MIMEAPPS=/usr/share/applications/mimeapps.list
+
+if ! grep -q '\[Default Applications\]' "$MIMEAPPS" 2>/dev/null; then
+    echo '[Default Applications]' | sudo tee -a "$MIMEAPPS" > /dev/null
+fi
+
+# Add or replace the handler entry
+if grep -q 'x-scheme-handler/donatepage' "$MIMEAPPS"; then
+    sudo sed -i 's|^x-scheme-handler/donatepage=.*|x-scheme-handler/donatepage=donatepage.desktop|' "$MIMEAPPS"
+else
+    sudo sed -i '/\[Default Applications\]/a x-scheme-handler/donatepage=donatepage.desktop' "$MIMEAPPS"
+fi
+
+sudo update-desktop-database /usr/share/applications 2>/dev/null || true
+sudo gtk-update-icon-cache /usr/share/icons/hicolor
