@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "########### LOCAL REPO HOOK ###############"
+
 mkdir -p /opt/repo/pool
 cd /opt/repo/pool
 
