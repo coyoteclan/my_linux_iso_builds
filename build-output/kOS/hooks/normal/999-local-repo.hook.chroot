@@ -1,0 +1,13 @@
+#!/bin/bash
+
+mkdir -p /opt/repo/pool
+cd /opt/repo/pool
+
+# download grub packages + deps without installing
+apt-get download \
+    grub-efi \
+    grub-legacy \
+    shim-signed
+
+ls -lh .
+exit 1
