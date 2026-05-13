@@ -2,6 +2,8 @@
 
 echo "########### LOCAL REPO HOOK ###############"
 
+OLDWD="$PWD"
+
 mkdir -p /opt/repo/pool
 cd /opt/repo/pool
 
@@ -21,4 +23,6 @@ apt-ftparchive release . > Release
 
 tree
 
-exit 1
+echo "deb [trusted=yes] file:///opt/repo ./" > /etc/apt/sources.list.d/local.list
+
+cd $PWD
