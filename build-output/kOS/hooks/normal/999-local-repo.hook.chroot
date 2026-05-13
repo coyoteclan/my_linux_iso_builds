@@ -7,9 +7,18 @@ cd /opt/repo/pool
 
 # download grub packages + deps without installing
 apt-get download \
-    grub-efi \
-    grub-legacy \
-    shim-signed
+    grub-efi grub-common grub-efi-amd64 grub-efi-amd64-bin grub-efi-amd64-unsigned grub-efi-amd64-signed \
+    grub-legacy efibootmgr grub-pc grub-pc-bin ucf \
+    shim-signed libdevmapper1.02.1
 
 ls -lh .
+
+cd /opt/repo
+
+apt-ftparchive packages pool > Packages
+gzip -k Packages
+apt-ftparchive release . > Release
+
+tree
+
 exit 1
