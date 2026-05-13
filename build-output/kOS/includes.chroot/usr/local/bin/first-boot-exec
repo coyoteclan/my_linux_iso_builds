@@ -13,6 +13,10 @@ gtk-update-icon-cache -f -t /usr/share/icons/hicolor
 # after install /opt/am becomes read-only
 chmod -R 757 /opt/am
 
+# local repo with bootloader packages
+rm /etc/apt/sources.list.d/local.list
+rm -rf /opt/repo
+
 systemctl disable first-boot-exec.service || true
 rm /etc/systemd/system/first-boot-exec.service
 rm /usr/local/bin/first-boot-exec
