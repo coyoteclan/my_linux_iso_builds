@@ -54,6 +54,7 @@ cp /output/kOS/hooks/normal/010-am.hook.chroot config/hooks/normal/010-am.hook.c
 cp /output/kOS/hooks/normal/020-apps.hook.chroot config/hooks/normal/020-apps.hook.chroot
 cp /output/kOS/hooks/normal/020-themes.hook.chroot config/hooks/normal/020-themes.hook.chroot
 cp /output/kOS/hooks/normal/999-desktop-config.hook.chroot config/hooks/normal/999-desktop-config.hook.chroot
+cp /output/kOS/hooks/normal/999-local-repo.hook.chroot config/hooks/normal/999-local-repo.hook.chroot
 
 mkdir -p config/includes.chroot/
 cp -r /output/kOS/includes.chroot/etc config/includes.chroot/
