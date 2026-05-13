@@ -5,5 +5,5 @@ echo "Installing AM (AppImage Manager)..."
 
 wget -q https://raw.githubusercontent.com/ivan-hc/AM/main/INSTALL
 chmod a+x ./INSTALL
-./INSTALL
+sudo ./INSTALL
 rm ./INSTALL
