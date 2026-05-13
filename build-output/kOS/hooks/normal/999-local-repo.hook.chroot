@@ -24,5 +24,6 @@ apt-ftparchive release . > Release
 tree
 
 echo "deb [trusted=yes] file:///opt/repo ./" > /etc/apt/sources.list.d/local.list
+apt update
 
 cd $OLDWD
