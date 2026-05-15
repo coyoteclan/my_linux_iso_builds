@@ -1,4 +1,10 @@
 #!/bin/bash
 set -e
 
+wget https://github.com/gxanshu/macos-bigsur-sound-theme-linux/releases/download/1.0.2/bigsur.zip
+unzip bigsur.zip
+rm bigsur.zip
+
+mv bigsur /usr/share/sounds/
+
 apt install kos-theme kos-kvantum-theme plymouth-theme-kos oreo-purple-cursors tela-circle-dracula-icons -y
