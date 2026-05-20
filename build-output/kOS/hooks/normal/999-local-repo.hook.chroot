@@ -27,5 +27,3 @@ echo "deb [trusted=yes] file:///opt/repo ./" > /etc/apt/sources.list.d/local.lis
 apt update
 
 cd $OLDWD
-echo "############ local repo test"
-tree /opt
