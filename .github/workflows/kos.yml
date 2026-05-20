@@ -109,6 +109,7 @@ jobs:
         mkdir -p ~/.config/rclone
         echo "$RCLONE_CONF" | base64 -d > ~/.config/rclone/rclone.conf
         ls -lah build-output
+        md5sum build-output/kazamOS* | tee md5sum.txt
         # copy the iso to remote
         for f in build-output/*-part*; do
           [ -e "$f" ] || continue
@@ -116,3 +117,4 @@ jobs:
           rm $f
         done
         rclone copy --progress "build-output/kazamOS.iso" "$RCLONE_REMOTE/"
+        rclone copy --progress md5sum.txt "$RCLONE_REMOTE"
