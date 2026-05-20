@@ -14,9 +14,12 @@ gtk-update-icon-cache -f -t /usr/share/icons/hicolor
 chmod -R 757 /opt/am
 
 # local repo with bootloader packages
-rm /etc/apt/sources.list.d/local.list
-rm -rf /opt/repo
-apt update
+# local repo with bootloader packages
+if ! loginctl list-users | grep -q liveuser; then
+    rm -f /etc/apt/sources.list.d/local.list
+    rm -rf /opt/repo
+    apt update
+fi
 
 systemctl disable first-boot-exec.service || true
 rm /etc/systemd/system/first-boot-exec.service
