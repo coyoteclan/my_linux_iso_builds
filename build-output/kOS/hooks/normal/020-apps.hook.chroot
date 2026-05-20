@@ -8,7 +8,7 @@ set -e
 echo "Installing Discord"
 # am install discord > /dev/null 2>&1
 wget "https://discord.com/api/download?platform=linux&format=deb" -O discord.deb
-apt install ./discord.deb
+apt install -y ./discord.deb
 rm discord.deb
 echo "Discord Installed"
 
