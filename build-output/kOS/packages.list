@@ -37,6 +37,8 @@ libxfce4ui-utils
 mate-polkit
 libcanberra-gtk3-module
 libcanberra-pulse
+gnome-session-canberra
+sox
 
 # Office
 firefox-esr

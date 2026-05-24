@@ -1,6 +1,0 @@
-[Desktop Entry]
-Name=Clipman
-Hidden=false
-TryExec=xfce4-clipman
-Exec=xfce4-clipman
-Type=Application
