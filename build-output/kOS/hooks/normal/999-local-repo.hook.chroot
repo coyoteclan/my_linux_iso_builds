@@ -5,13 +5,10 @@ echo "########### LOCAL REPO HOOK ###############"
 OLDWD="$PWD"
 
 mkdir -p /opt/repo/pool
-cd /opt/repo/pool
 
 # download grub packages + deps without installing
-apt-get download \
-    grub-efi grub-common grub-efi-amd64 grub-efi-amd64-bin grub-efi-amd64-unsigned grub-efi-amd64-signed \
-    grub-legacy efibootmgr grub-pc grub-pc-bin ucf \
-    shim-signed libdevmapper1.02.1
+apt-get install --print-uris grub-pc | grep "^'" | cut -d"'" -f2 | while read url; do wget -P /opt/repo/pool/ "$url"; done
+apt-get install --print-uris grub-efi | grep "^'" | cut -d"'" -f2 | while read url; do wget -P /opt/repo/pool/ "$url"; done
 
 ls -lh .
 
