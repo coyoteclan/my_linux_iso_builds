@@ -7,10 +7,11 @@ OLDWD="$PWD"
 mkdir -p /opt/repo/pool
 
 # download grub packages + deps without installing
-apt-get install --print-uris grub-pc | grep "^'" | cut -d"'" -f2 | while read url; do wget -P /opt/repo/pool/ "$url"; done
-apt-get install --print-uris grub-efi | grep "^'" | cut -d"'" -f2 | while read url; do wget -P /opt/repo/pool/ "$url"; done
+mapfile -t urls < <( { apt-get install --print-uris grub-pc | grep "^'" | cut -d"'" -f2; apt-get install --print-uris grub-efi | grep "^'" | cut -d"'" -f2; } | sort -u )
 
-ls -lh .
+for url in "${urls[@]}"; do
+  wget -P /opt/repo/pool/ "$url"
+done
 
 cd /opt/repo
 
