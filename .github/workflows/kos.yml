@@ -115,7 +115,7 @@ jobs:
         cd build-output
         ls -lah 
         md5sum kazamOS* | tee kazamOS_md5sum.txt
-        timestamp=$(date +%H_%d%M%Y%Z)
+        timestamp=$(date +%H.%M_%d-%B-%Y-%Z)
         # copy the iso to remote
         for f in kazamOS*; do
           [ -e "$f" ] || continue
