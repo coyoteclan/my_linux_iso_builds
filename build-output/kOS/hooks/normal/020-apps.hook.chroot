@@ -5,6 +5,8 @@ set -e
 #am install kdenlive > /dev/null 2>&1
 #echo "KDENLIVE Installed"
 
+am install baobab.gtk3
+
 echo "Installing Discord"
 # am install discord > /dev/null 2>&1
 wget "https://discord.com/api/download?platform=linux&format=deb" -O discord.deb
