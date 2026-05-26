@@ -71,11 +71,9 @@ fonts-liberation
 fonts-nafees
 fonts-paktype
 
-# Cursor theme
-
 # Utils
+drawing
 ffmpeg
-baobab
 gparted
 qalculate-gtk
 engrampa
@@ -112,11 +110,6 @@ webp-pixbuf-loader
 lightdm
 slick-greeter
 lightdm-settings
-
-# Installer
-# skip here
-# calamares
-# calamares-settings-debian
 
 # Plymouth
 plymouth
