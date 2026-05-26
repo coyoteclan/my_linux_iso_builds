@@ -115,11 +115,12 @@ jobs:
         cd build-output
         ls -lah 
         md5sum kazamOS* | tee kazamOS_md5sum.txt
+        timestamp=$(date +%H_%d%M%Y)
         # copy the iso to remote
         for f in kazamOS*; do
           [ -e "$f" ] || continue
           rsync -avP \
             -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
             $f \
-            ${SF_USER}@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/$(date +%H_%d%M%Y)/
+            ${SF_USER}@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/$timestamp/
         done
