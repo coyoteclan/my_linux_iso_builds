@@ -121,5 +121,5 @@ jobs:
           rsync -avP \
             -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
             $f \
-            ${SF_USER}@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/$(date +%H_%d.%M.%Y)/
+            ${SF_USER}@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/$(date +%H_%d%M%Y)/
         done
