@@ -44,7 +44,7 @@ sox
 firefox-esr
 libspeechd2
 hunspell-en-us
-evince
+xournalpp
 
 # Pipewire
 pipewire
