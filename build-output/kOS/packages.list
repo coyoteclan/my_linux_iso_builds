@@ -39,6 +39,7 @@ libcanberra-gtk3-module
 libcanberra-pulse
 gnome-session-canberra
 sox
+menulibre
 
 # Office
 firefox-esr
