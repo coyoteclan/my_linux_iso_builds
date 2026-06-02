@@ -35,8 +35,9 @@ lb config \
   --bootappend-live "boot=live components live-config.timezone=Asia/Karachi locales=en_US.UTF-8,ur_PK.UTF-8 keyboard-layouts=us quiet splash" \
   --bootloader grub-pc,grub-efi \
   --uefi-secure-boot auto \
-  --compression gzip \
-  --chroot-squashfs-compression-type gzip \
+  --compression xz \
+  --chroot-squashfs-compression-type xz \
+  #--chroot-squashfs-compression-level 5 \
   --initsystem systemd \
   --initramfs live-boot \
   --iso-application "kazamOS" \
