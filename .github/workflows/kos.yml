@@ -107,7 +107,7 @@ jobs:
         chmod 600 ~/.ssh/sf_key
         ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
 
-    - name: Upload ISO to remote via rclone
+    - name: Upload ISO to sourceforg via rsync
       env:
         SF_USER: kazam0180
         SF_PROJECT: kazamos
@@ -124,3 +124,23 @@ jobs:
             $f \
             ${SF_USER}@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/$timestamp/
         done
+
+    - name: Setup rclone
+      uses: AnimMouse/setup-rclone@v1
+
+    - name: Upload ISO to pcloud via rclone
+      env:
+        RCLONE_CONF: ${{ secrets.RCLONE_CONFIG }}
+        RCLONE_REMOTE: "my_pcloud:kazamOS"
+      run: |
+        mkdir -p ~/.config/rclone
+        echo "$RCLONE_CONF" | base64 -d > ~/.config/rclone/rclone.conf
+        ls -lah build-output
+        # copy the iso to remote
+        for f in build-output/*-part*; do
+          [ -e "$f" ] || continue
+          rclone copy --progress "$f" "$RCLONE_REMOTE/"
+          rm $f
+        done
+        rclone copy --progress "build-output/kazamOS.iso" "$RCLONE_REMOTE/"
+        rclone copy --progress kazamOS_md5sum.txt "$RCLONE_REMOTE"
