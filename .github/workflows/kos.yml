@@ -113,7 +113,8 @@ jobs:
         SF_PROJECT: kazamos
       run: |
         cd build-output
-        ls -lah 
+        ls -lah
+        exit 1
         md5sum kazamOS* | tee kazamOS_md5sum.txt
         timestamp=$(date +%H.%M_%d-%B-%Y-%Z)
         # copy the iso to remote
