@@ -36,8 +36,7 @@ lb config \
   --bootloader grub-pc,grub-efi \
   --uefi-secure-boot auto \
   --compression xz \
-  --chroot-squashfs-compression-type zstd \
-  --chroot-squashfs-compression-level 5 \
+  --chroot-squashfs-compression-type xz \
   --initsystem systemd \
   --initramfs live-boot \
   --iso-application "kazamOS" \
