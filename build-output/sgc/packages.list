@@ -3,7 +3,6 @@ xfwm4
 xfce4-terminal
 xfce4-screenshooter
 xfce4-clipman
-xfce4-screensaver
 xfce4-panel
 xfce4-panel-profiles
 xfce4-settings
@@ -30,7 +29,6 @@ mousepad
 ristretto
 xfce4-notifyd
 xfce4-dict
-xfce4-appfinder
 mugshot
 xfconf-gsettings-backend
 libxfce4ui-utils
@@ -83,16 +81,8 @@ fonts-paktype
 # Cursor theme
 breeze-cursor-theme
 
-# PixiEditor deps
-libx11-6
-libice6
-libsm6
-libicu-dev
-libfontconfig1
-
 # Utils
 ffmpeg
-baobab
 gparted
 qalculate-gtk
 engrampa
@@ -126,16 +116,9 @@ qt-style-kvantum
 webp-pixbuf-loader
 
 # Development
-build-essential
-meson
-ninja-build
-cmake
+gcc
 clangd
 git
-python3-venv
-python3-pip
-python3-setuptools
-python3-pylsp
 
 # LightDM
 lightdm
