@@ -31,7 +31,7 @@ lb config \
   --bootappend-live "boot=live components live-config.timezone=Asia/Karachi locales=en_US.UTF-8,ur_PK.UTF-8 keyboard-layouts=us quiet splash" \
   --bootloader grub-pc,grub-efi \
   --uefi-secure-boot auto \
-  --compression zstd \
+  --compression xz \
   --chroot-squashfs-compression-level 22 \
   --chroot-squashfs-compression-type zstd \
   --initsystem systemd \
