@@ -2,7 +2,7 @@
 set -e
 
 echo "Downloading Kate Editor"
-base="https://cdn.kde.org/ci-builds/utilities/kate/release-25.12/linux/"
+base="https://cdn.kde.org/ci-builds/utilities/kate/release-26.04/linux/"
 html="$(curl -sS "$base")"
 
 latest=$(printf "%s\n" "$html" \
@@ -19,13 +19,6 @@ kate_url="${base}${latest}"
 wget -q $kate_url -O /usr/local/bin/kate
 chmod +x /usr/local/bin/kate
 echo "Kate Editor Installed"
-
-wget -q https://github.com/PixiEditor/PixiEditor/releases/download/2.0.1.19/PixiEditor-2.0.1.19-amd64-linux.deb
-apt install -y ./PixiEditor-2.0.1.19-amd64-linux.deb
-rm PixiEditor-2.0.1.19-amd64-linux.deb
-sed -i 's/Exec=pixieditor/Exec=pixieditor --opengl --system-decorations/g' /usr/share/applications/PixiEditor.desktop
-
-echo "PixiEditor Installed"
 
 echo "Installing KDENLIVE"
 am install kdenlive > /dev/null 2>&1

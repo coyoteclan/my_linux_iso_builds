@@ -37,6 +37,9 @@ libxfce4ui-utils
 mate-polkit
 libcanberra-gtk3-module
 libcanberra-pulse
+gnome-session-canberra
+sox
+menulibre
 
 # Office
 libreoffice
@@ -50,7 +53,7 @@ firefox-esr
 libspeechd2
 libpaper-utils
 hunspell-en-us
-evince
+xournalpp
 
 # Pipewire
 pipewire

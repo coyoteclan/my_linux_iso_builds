@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.1
+Type=Application
+Name=Graphite Editor (Web)
+Icon=graphite-logo-color
+Exec=exo-open "https://editor.graphite.art"
+Actions=
+Categories=Graphics;X-XFCE;X-Xfce-Toplevel;
+Keywords=graphite;editor;2d;vector;graphics;drawing;designing;
