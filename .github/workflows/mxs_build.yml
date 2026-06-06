@@ -82,14 +82,16 @@ jobs:
 
     - name: Upload ISO to remote via rclone
       env:
-        RCLONE_CONF: ${{ secrets.RCLONE_CONFIG }}
-        RCLONE_REMOTE: "my_pcloud:mxs"
+        RCLONE_CONF: ${{ secrets.RCLONE_CONFIG_2 }}
+        RCLONE_REMOTE: "my_1f:mxs"
       run: |
         mkdir -p ~/.config/rclone
         echo "$RCLONE_CONF" | base64 -d > ~/.config/rclone/rclone.conf
-        ls -lah build-output
+        cd build-output
+        ls -lah
+        md5sum ./* | tee sgc_md5sum.txt
         # copy the iso to remote
-        for f in build-output/*.iso; do
+        for f in ./*; do
           [ -e "$f" ] || continue
           rclone copy --progress "$f" "$RCLONE_REMOTE/"
         done
