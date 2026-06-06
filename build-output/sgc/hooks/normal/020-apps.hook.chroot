@@ -80,7 +80,5 @@ sed -i 's/    versionedName:       kazamOS 1.0.1/    versionedName:       Debian
 sed -i 's/shortVersionedName:  kazamOS 1/shortVersionedName:  Debian 13/g' /etc/calamares/branding/kazamOS/branding.desc
 sed -i 's/bootloaderEntryName: kazamOS/bootloaderEntryName: Debian/g' /etc/calamares/branding/kazamOS/branding.desc
 
-apt install greengodot kazamos-getting-started media-downloader -y
-
 wget -q https://kazam.pages.dev/public/nov.29/meson_kate_helper -O /usr/bin/meson_kate_helper
 chmod +x /usr/bin/meson_kate_helper
