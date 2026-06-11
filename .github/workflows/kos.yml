@@ -120,8 +120,8 @@ jobs:
         for f in kazamOS*; do
           [ -e "$f" ] || continue
           rsync -avP \
-            -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
-            $f \
+            -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no -o IdentitiesOnly=yes" \
+            "$f" \
             ${SF_USER}@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/$timestamp/
         done
 
