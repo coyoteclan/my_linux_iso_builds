@@ -103,9 +103,13 @@ jobs:
         sudo apt update
         sudo apt install rsync openssh-client -y
         mkdir -p ~/.ssh
+        echo "${{ secrets.SF_SSH_KEY }}" | head -1
+        echo "${{ secrets.SF_SSH_KEY }}" | tail -1
         echo "${{ secrets.SF_SSH_KEY }}" > ~/.ssh/sf_key
         chmod 600 ~/.ssh/sf_key
         ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
+        ssh -i ~/.ssh/sf_key -o IdentitiesOnly=yes -v \
+          kazam0180@frs.sourceforge.net echo "connection ok"
 
     - name: Upload ISO to sourceforg via rsync
       env:
