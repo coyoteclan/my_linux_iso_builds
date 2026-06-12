@@ -106,8 +106,8 @@ jobs:
         echo "${{ secrets.SF_SSH_KEY }}" > ~/.ssh/sf_key
         chmod 600 ~/.ssh/sf_key
         ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
-        echo ~/.ssh/sf_key | head -1
-        echo ~/.ssh/sf_key | tail -1
+        cat ~/.ssh/sf_key | head -1
+        cat ~/.ssh/sf_key | tail -1
 
     - name: Upload ISO to sourceforg via rsync
       env:
@@ -122,7 +122,7 @@ jobs:
         for f in kazamOS*; do
           [ -e "$f" ] || continue
           rsync -avP \
-            -e "ssh -i -v ~/.ssh/sf_key -o StrictHostKeyChecking=no -o IdentitiesOnly=yes" \
+            -e "ssh -iv ~/.ssh/sf_key -o StrictHostKeyChecking=no -o IdentitiesOnly=yes" \
             "$f" \
             ${SF_USER}@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/$timestamp/
         done
