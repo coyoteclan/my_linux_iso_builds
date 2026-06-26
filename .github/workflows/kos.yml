@@ -121,6 +121,7 @@ jobs:
         # copy the iso to remote
         for f in kazamOS*; do
           [ -e "$f" ] || continue
+          exit
           rsync -avP \
             -e "ssh -v -i ~/.ssh/sf_key -o StrictHostKeyChecking=no -o IdentitiesOnly=yes" \
             "$f" \
@@ -139,7 +140,7 @@ jobs:
         echo "$RCLONE_CONF" | base64 -d > ~/.config/rclone/rclone.conf
         cd build-output
         # copy the iso to remote
-        for f in kazamOS*; do
+        for f in *.iso; do
           [ -e "$f" ] || continue
           rclone copy --progress "$f" "$RCLONE_REMOTE/"
         done
