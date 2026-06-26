@@ -20,7 +20,7 @@ echo "=================================="
 ls -lh
 
 echo "Patching binary_bootloader_splash"
-sed -i "s|_PROJECT=\"Debian GNU/Linux\"|_PROJECT=\"kazamOS\"\n_DISTRIBUTION=\"wired\"|g" /usr/lib/live/build/binary_bootloader_splash
+sed -i "s|_PROJECT=\"Debian GNU/Linux\"|_PROJECT=\"kazamOS\"\n_DISTRIBUTION=\"voltage\"|g" /usr/lib/live/build/binary_bootloader_splash
 cat /usr/lib/live/build/binary_bootloader_splash
 
 lb config \

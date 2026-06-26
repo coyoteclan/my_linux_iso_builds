@@ -30,15 +30,15 @@ cat /etc/os-release
 mv /etc/os-release /etc/os-release-debian
 
 cat > /etc/os-release << 'EOF'
-PRETTY_NAME="kazamOS 1.0 (wired)"
+PRETTY_NAME="kazamOS 2.0 (voltage)"
 NAME="kazamOS"
-VERSION_ID="1"
-VERSION="1 (wired)"
-VERSION_CODENAME=wired
-DEBIAN_VERSION_FULL=13.4
+VERSION_ID="2"
+VERSION="2 (voltage)"
+VERSION_CODENAME=voltage
 ID="kazamos"
 LOGO="kazamos-short"
-ID_LIKE=debian
+ID_LIKE=ubuntu
+UBUNTU_CODENAME=resolute
 HOME_URL="https://gitlab.com/kazamOS/"
 SUPPORT_URL="https://gitlab.com/kazamOS/"
 BUG_REPORT_URL="https://gitlab.com/kazamOS/"
