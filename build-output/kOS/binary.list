@@ -1,0 +1,32 @@
+b43-fwcutter
+dkms
+open-vm-tools-desktop
+setserial
+user-setup
+
+efibootmgr
+secureboot-db
+shim
+shim-signed
+
+grub-pc
+grub-pc-bin
+grub-common
+grub2-common
+mokutil
+
+#if ARCHITECTURES amd64
+broadcom-sta-dkms
+intel-microcode
+iucode-tool
+
+grub-efi-amd64
+grub-efi-amd64-bin
+grub-efi-amd64-signed
+#endif
+
+#if ARCHITECTURES arm64
+grub-efi-arm64
+grub-efi-arm64-bin
+grub-efi-arm64-signed
+#endif

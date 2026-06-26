@@ -58,7 +58,7 @@ echo 'deb http://download.opensuse.org/repositories/home:/strycore:/lutris/Debia
 curl -fsSL https://download.opensuse.org/repositories/home:strycore:lutris/Debian_13/Release.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/home_strycore_lutris.gpg > /dev/null
 
 apt update
-apt install -t wired calamares -y
+apt install -t voltage calamares -y
 apt install calamares-settings-kos donatepage -y
 
 sed -i 's| kazamOS||g' /usr/share/applications/donatepage.desktop

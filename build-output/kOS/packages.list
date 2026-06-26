@@ -42,7 +42,6 @@ sox
 menulibre
 
 # Office
-firefox-esr
 libspeechd2
 hunspell-en-us
 xournalpp
@@ -58,8 +57,7 @@ network-manager
 network-manager-gnome
 
 # Firmware
-firmware-linux
-firmware-linux-nonfree
+linux-firmware
 intel-microcode
 amd64-microcode
 
@@ -119,3 +117,6 @@ plymouth-label
 
 # Games
 bzflag
+
+@XORG_HWE
+@KERNEL_HEADERS

@@ -47,9 +47,14 @@ echo "Adding lutris repo"
 echo 'deb http://download.opensuse.org/repositories/home:/strycore:/lutris/Debian_13/ /' | tee /etc/apt/sources.list.d/home:strycore:lutris.list
 curl -fsSL https://download.opensuse.org/repositories/home:strycore:lutris/Debian_13/Release.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/home_strycore_lutris.gpg > /dev/null
 
+echo "Adding firefox repo"
+curl -fsSL https://packages.mozilla.org/apt/repo-signing-key.gpg | gpg --dearmor -o /etc/apt/keyrings/mozilla.gpg
+echo "deb [signed-by=/etc/apt/keyrings/mozilla.gpg] https://packages.mozilla.org/apt mozilla main" > /etc/apt/sources.list.d/mozilla.list
+
 apt update
 apt install -t voltage calamares calamares-settings-kos -y
-apt install kazamos-desktop-base donatepage rustdesk supertuxkart-mini -y
+apt install kazamos-desktop-base donatepage rustdesk supertuxkart-mini firefox -y
+
 cp /etc/skel/.face /home/liveuser/
 (cd /home/liveuser;ln -sf .face .face.icon;chown -R liveuser:liveuser .face*)
 apt install --install-recommends winehq-stable libgl1:i386 libgl1-mesa-dri:i386 -y

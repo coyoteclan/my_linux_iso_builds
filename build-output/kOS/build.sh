@@ -8,7 +8,7 @@ df -h
 
 apt-get update
 apt-get install -y tree live-build debootstrap tar unar syslinux-utils \
-    isolinux debian-archive-keyring rclone squashfs-tools genisoimage
+    isolinux squashfs-tools genisoimage binutils ar gnupg2 patch zstd
 
 mkdir -p /tmp/live-build
 cd /tmp/live-build
@@ -17,20 +17,71 @@ echo "=================================="
 echo "DIAGNOSTIC: Configuring live-build"
 echo "=================================="
 
+
+# COPIED FROM ELEMENTARY
+# The Debian repositories don't seem to have the `ubuntu-keyring` or `ubuntu-archive-keyring` packages
+# anymore, so we add the archive keys manually. This may need to be updated if Ubuntu changes their signing keys
+# To get the current key ID, find `ubuntu-keyring-xxxx-archive.gpg` in /etc/apt/trusted.gpg.d on a running
+# system and run `gpg --keyring /etc/apt/trusted.gpg.d/ubuntu-keyring-xxxx-archive.gpg --list-public-keys `
+gpg --homedir /tmp --no-default-keyring --keyring /etc/apt/trusted.gpg --recv-keys --keyserver keyserver.ubuntu.com F6ECB3762474EDA9D21B7022871920D1991BC93C
+
+# TODO: Remove this once debootstrap can natively build resolute images:
+ln -sfn /usr/share/debootstrap/scripts/gutsy /usr/share/debootstrap/scripts/resolute
+
 ls -lh
 
 echo "Patching binary_bootloader_splash"
 sed -i "s|_PROJECT=\"Debian GNU/Linux\"|_PROJECT=\"kazamOS\"\n_DISTRIBUTION=\"voltage\"|g" /usr/lib/live/build/binary_bootloader_splash
 cat /usr/lib/live/build/binary_bootloader_splash
 
+. /output/kOS/terraform.conf
+
+
+if [ "$HWE_KERNEL" = "yes" ]; then
+    KERNEL_FLAVORS="generic-hwe-${BASEVERSION}"
+else
+    KERNEL_FLAVORS="generic"
+fi
+
+if [ "$HWE_X11" = "yes" ]; then
+    XORG_HWE="xserver-xorg-hwe-${BASEVERSION}"
+fi
+
+case "$ARCH" in
+    amd64|i386)
+        MIRROR_BINARY_URL="http://archive.ubuntu.com/ubuntu/"
+        MIRROR_BINARY_SECURITY_URL="http://security.ubuntu.com/ubuntu/"
+        ;;
+    arm64)
+        MIRROR_BINARY_URL="http://ports.ubuntu.com/ubuntu-ports/"
+        MIRROR_BINARY_SECURITY_URL="http://ports.ubuntu.com/ubuntu-ports/"
+        ;;
+esac
+
 lb config \
-  --distribution trixie \
-  --architectures amd64 \
+  --distribution "$BASECODENAME" \
+  --parent-distribution "$BASECODENAME" \
+  --architectures "$ARCH" \
+  --mode debian \
   --debian-installer none \
-  --archive-areas "main contrib non-free non-free-firmware" \
-  --backports true \
-  --security true \
-  --updates true \
+  --archive-areas "main restricted universe multiverse" \
+  --parent-archive-areas "main restricted universe multiverse" \
+  --linux-packages linux-image \
+  --linux-flavours "$KERNEL_FLAVORS" \
+  --debootstrap-options="--extractor=ar --keyring=/etc/apt/trusted.gpg" \
+  --checksums md5 \
+  --mirror-bootstrap "$MIRROR_URL" \
+  --parent-mirror-bootstrap "$MIRROR_URL" \
+  --mirror-chroot-security "$MIRROR_BINARY_SECURITY_URL" \
+  --parent-mirror-chroot-security "$MIRROR_BINARY_SECURITY_URL" \
+  --mirror-binary-security "$MIRROR_BINARY_SECURITY_URL" \
+  --parent-mirror-binary-security "$MIRROR_BINARY_SECURITY_URL" \
+  --mirror-binary "$MIRROR_BINARY_URL" \
+  --parent-mirror-binary "$MIRROR_BINARY_URL" \
+  --keyring-packages ubuntu-keyring \
+  --apt-options "--yes --option Acquire::Retries=2 --option Acquire::http::Timeout=45" \
+  --cache-packages false \
+  --uefi-secure-boot enable \
   --binary-images iso-hybrid \
   --bootappend-live "boot=live components live-config.timezone=Asia/Karachi locales=en_US.UTF-8,ur_PK.UTF-8 keyboard-layouts=us quiet splash" \
   --bootloader grub-pc,grub-efi \
@@ -39,12 +90,17 @@ lb config \
   --chroot-squashfs-compression-type xz \
   --initsystem systemd \
   --initramfs live-boot \
-  --iso-application "kazamOS" \
+  --iso-application "$NAME" \
+  --iso-volume "$NAME" \
   --iso-publisher "Kazam" \
-  --iso-volume "kazamOS ISO"
+  --security true
+
+sed -i "s/@XORG_HWE/$XORG_HWE/" /output/kOS/packages.list
+sed -i "s/@KERNEL_HEADERS/linux-headers-$KERNEL_FLAVORS/" /output/kOS/packages.list
 
 mkdir -p config/package-lists
 cp /output/kOS/packages.list config/package-lists/custom.list.chroot
+cp /output/kOS/binary.list config/package-lists/pool.list.binary
 
 mkdir -p config/hooks/normal
 tree /output/ -L 3 || echo "/output doesn't exist"
@@ -54,7 +110,7 @@ cp /output/kOS/hooks/normal/010-am.hook.chroot config/hooks/normal/010-am.hook.c
 cp /output/kOS/hooks/normal/020-apps.hook.chroot config/hooks/normal/020-apps.hook.chroot
 cp /output/kOS/hooks/normal/020-themes.hook.chroot config/hooks/normal/020-themes.hook.chroot
 cp /output/kOS/hooks/normal/999-desktop-config.hook.chroot config/hooks/normal/999-desktop-config.hook.chroot
-cp /output/kOS/hooks/normal/999-local-repo.hook.chroot config/hooks/normal/999-local-repo.hook.chroot
+#cp /output/kOS/hooks/normal/999-local-repo.hook.chroot config/hooks/normal/999-local-repo.hook.chroot
 
 mkdir -p config/includes.chroot/
 cp -r /output/kOS/includes.chroot/etc config/includes.chroot/
