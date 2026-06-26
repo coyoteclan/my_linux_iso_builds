@@ -8,7 +8,7 @@ df -h
 
 apt-get update
 apt-get install -y tree live-build debootstrap tar unar syslinux-utils \
-    isolinux squashfs-tools genisoimage binutils ar gnupg2 patch zstd
+    isolinux squashfs-tools genisoimage binutils gnupg2 patch zstd
 
 mkdir -p /tmp/live-build
 cd /tmp/live-build
