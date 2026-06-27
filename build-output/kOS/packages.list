@@ -105,6 +105,7 @@ qt6ct
 qt-style-kvantum
 webp-pixbuf-loader
 apt-utils
+tree
 
 # LightDM
 lightdm
