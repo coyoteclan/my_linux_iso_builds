@@ -38,6 +38,14 @@ jobs:
         path: build-output/build.log
         retention-days: 7
 
+    - name: Upload rec
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: rec
+        path: build-output/demo.cast
+        retention-days: 7
+
     - name: Cleanup build artifacts
       if: always()
       run: |
