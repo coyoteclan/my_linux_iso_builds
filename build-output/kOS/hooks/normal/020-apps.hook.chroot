@@ -52,8 +52,8 @@ curl -fsSL https://packages.mozilla.org/apt/repo-signing-key.gpg | gpg --dearmor
 echo "deb [signed-by=/etc/apt/keyrings/mozilla.gpg] https://packages.mozilla.org/apt mozilla main" > /etc/apt/sources.list.d/mozilla.list
 
 apt update
-apt-mark hold calamares calamares-data libcalamares3.3 libcalamaresui3.3
 apt install -t voltage calamares calamares-settings-kos -y
+apt-mark hold calamares calamares-data libcalamares3.3 libcalamaresui3.3
 apt install -t mozilla firefox-esr -y
 apt install kazamos-desktop-base donatepage rustdesk supertuxkart-mini -y
 
