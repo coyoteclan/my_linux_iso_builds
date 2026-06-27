@@ -53,7 +53,8 @@ echo "deb [signed-by=/etc/apt/keyrings/mozilla.gpg] https://packages.mozilla.org
 
 apt update
 apt install -t voltage calamares calamares-settings-kos -y
-apt install kazamos-desktop-base donatepage rustdesk supertuxkart-mini firefox -y
+apt install -t mozilla firefox -y
+apt install kazamos-desktop-base donatepage rustdesk supertuxkart-mini -y
 
 cp /etc/skel/.face /home/liveuser/
 (cd /home/liveuser;ln -sf .face .face.icon;chown -R liveuser:liveuser .face*)
