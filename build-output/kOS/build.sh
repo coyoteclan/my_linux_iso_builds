@@ -125,6 +125,9 @@ df -h
 
 lb build 2>&1 | tee /output/build.log
 
+sudo apt install asciinema
+asciinema rec demo.cast
+
 echo "================================"
 echo "DIAGNOSTIC: Chroot size breakdown"
 echo "================================"
@@ -180,3 +183,4 @@ else
 fi
 
 ls -lh /output/
+exit
