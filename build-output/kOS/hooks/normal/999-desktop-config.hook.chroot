@@ -37,10 +37,10 @@ VERSION="2 (voltage)"
 VERSION_CODENAME=voltage
 ID="kazamos"
 LOGO="kazamos-short"
-ID_LIKE=ubuntu
+ID_LIKE="ubuntu debian"
 UBUNTU_CODENAME=resolute
-HOME_URL="https://gitlab.com/kazamOS/"
-SUPPORT_URL="https://gitlab.com/kazamOS/"
+HOME_URL="https://kazamOS.gitlab.io/"
+SUPPORT_URL="https://matrix.to/#/#kazamos:matrix.org/"
 BUG_REPORT_URL="https://gitlab.com/kazamOS/"
 
 EOF
