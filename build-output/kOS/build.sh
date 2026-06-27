@@ -1,4 +1,10 @@
-#!/bin/bash
+- name: Upload build log
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: build-log
+        path: build-output/build.log
+        retention-days: 7#!/bin/bash
 set -ex
 
 echo "================================"
@@ -126,7 +132,7 @@ df -h
 lb build 2>&1 | tee /output/build.log
 
 sudo apt install asciinema
-asciinema rec demo.cast
+asciinema rec /output/demo.cast
 
 echo "================================"
 echo "DIAGNOSTIC: Chroot size breakdown"
