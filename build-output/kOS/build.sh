@@ -1,10 +1,4 @@
-- name: Upload build log
-      if: always()
-      uses: actions/upload-artifact@v7
-      with:
-        name: build-log
-        path: build-output/build.log
-        retention-days: 7#!/bin/bash
+#!/bin/bash
 set -ex
 
 echo "================================"
@@ -139,8 +133,15 @@ echo "DIAGNOSTIC: Chroot size breakdown"
 echo "================================"
 du -sh /tmp/live-build/chroot/* | sort -h | tail -30
 du -sh /tmp/live-build/chroot/usr/share/* | sort -h | tail -20
+for f in /tmp/live-build/chroot/usr/share/*; do
+  du -sh $f/* | sort -h | tail -20
+done
 du -sh /tmp/live-build/chroot/usr/lib/* | sort -h | tail -20
+for f in /tmp/live-build/chroot/usr/lib/*; do
+  du -sh $f/* | sort -h | tail -20
+done
 
+du -hs /opt/*
 
 if [ -f binary/live/filesystem.squashfs ]; then
   echo "================================"
