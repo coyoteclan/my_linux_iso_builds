@@ -13,6 +13,16 @@ for url in "${urls[@]}"; do
   wget -P /opt/repo/pool/ "$url"
 done
 
+# Generate a throwaway GPG key for signing
+gpg --batch --gen-key <<EOF
+%no-protection
+Key-Type: RSA
+Key-Length: 2048
+Name-Real: kazamOS Local Repo
+Name-Email: local@kazamos
+Expire-Date: 0
+EOF
+
 cd /opt/repo
 
 apt-ftparchive packages pool > Packages
@@ -25,6 +35,11 @@ apt-ftparchive \
     -o APT::FTPArchive::Release::Architectures="amd64" \
     -o APT::FTPArchive::Release::Components="." \
     release . > Release
+
+
+# Sign to create InRelease
+gpg --clearsign -o InRelease Release
+gpg --detach-sign --armor -o Release.gpg Release
 
 tree
 
