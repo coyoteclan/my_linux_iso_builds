@@ -6,6 +6,8 @@ OLDWD="$PWD"
 
 mkdir -p /opt/repo/pool
 
+apt-get install --print-uris grub-pc | grep "^'" | cut -d"'" -f2
+
 # download grub packages + deps without installing
 mapfile -t urls < <( { apt-get install --print-uris grub-pc | grep "^'" | cut -d"'" -f2; apt-get install --print-uris grub-efi secureboot-db shim shim-signed  | grep "^'" | cut -d"'" -f2; } | sort -u )
 
