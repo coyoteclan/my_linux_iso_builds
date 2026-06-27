@@ -125,7 +125,7 @@ df -h
 
 lb build 2>&1 | tee /output/build.log
 
-apt install asciinema
+apt install asciinema -y
 asciinema rec /output/demo.cast
 
 echo "================================"
