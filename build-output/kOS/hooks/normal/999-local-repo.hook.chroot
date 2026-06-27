@@ -17,11 +17,18 @@ cd /opt/repo
 
 apt-ftparchive packages pool > Packages
 gzip -k Packages
-apt-ftparchive release . > Release
+apt-ftparchive \
+    -o APT::FTPArchive::Release::Origin="kazamOS" \
+    -o APT::FTPArchive::Release::Label="kazamOS Local" \
+    -o APT::FTPArchive::Release::Suite="local" \
+    -o APT::FTPArchive::Release::Codename="local" \
+    -o APT::FTPArchive::Release::Architectures="amd64" \
+    -o APT::FTPArchive::Release::Components="." \
+    release . > Release
 
 tree
 
-echo "deb [trusted=yes] file:///opt/repo ./" > /etc/apt/sources.list.d/local.list
+echo "deb [trusted=yes arch=amd64] file:///opt/repo ./" > /etc/apt/sources.list.d/local.list
 apt update
 
 cd $OLDWD
