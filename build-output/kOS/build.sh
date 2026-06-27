@@ -125,6 +125,14 @@ df -h
 
 lb build 2>&1 | tee /output/build.log
 
+echo "================================"
+echo "DIAGNOSTIC: Chroot size breakdown"
+echo "================================"
+du -sh /tmp/live-build/chroot/* | sort -h | tail -30
+du -sh /tmp/live-build/chroot/usr/share/* | sort -h | tail -20
+du -sh /tmp/live-build/chroot/usr/lib/* | sort -h | tail -20
+
+
 if [ -f binary/live/filesystem.squashfs ]; then
   echo "================================"
   echo "DIAGNOSTIC: Checking squashfs integrity"
