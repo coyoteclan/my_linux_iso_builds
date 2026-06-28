@@ -43,7 +43,7 @@ jobs:
       uses: actions/upload-artifact@v7
       with:
         name: rec
-        path: build-output/sizes_log
+        path: build-output/sizes_log*
         retention-days: 7
 
     - name: Cleanup build artifacts
