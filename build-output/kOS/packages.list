@@ -121,4 +121,4 @@ plymouth-label
 bzflag
 
 @XORG_HWE
-@KERNEL_HEADERS
+# @KERNEL_HEADERS

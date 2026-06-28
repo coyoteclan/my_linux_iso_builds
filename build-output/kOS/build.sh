@@ -96,7 +96,7 @@ lb config \
   --security true
 
 sed -i "s/@XORG_HWE/$XORG_HWE/" /output/kOS/packages.list
-sed -i "s/@KERNEL_HEADERS/linux-headers-$KERNEL_FLAVORS/" /output/kOS/packages.list
+# sed -i "s/@KERNEL_HEADERS/linux-headers-$KERNEL_FLAVORS/" /output/kOS/packages.list
 
 mkdir -p config/package-lists
 cp /output/kOS/packages.list config/package-lists/custom.list.chroot
