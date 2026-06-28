@@ -125,23 +125,20 @@ df -h
 
 lb build 2>&1 | tee /output/build.log
 
-apt install asciinema -y
-asciinema rec /output/demo.cast
-
 echo "================================"
 echo "DIAGNOSTIC: Chroot size breakdown"
 echo "================================"
-du -sh /tmp/live-build/chroot/* | sort -h | tail -30
-du -sh /tmp/live-build/chroot/usr/share/* | sort -h | tail -20
+du -sh /tmp/live-build/chroot/* | sort -h | tail -30 2>&1 | tee /output/sizes_log
+du -sh /tmp/live-build/chroot/usr/share/* | sort -h | tail -20 2>&1 | tee /output/sizes_log
 for f in /tmp/live-build/chroot/usr/share/*; do
-  du -sh $f/* | sort -h | tail -20
+  du -sh $f/* | sort -h | tail -20 2>&1 | tee /output/sizes_log
 done
-du -sh /tmp/live-build/chroot/usr/lib/* | sort -h | tail -20
+du -sh /tmp/live-build/chroot/usr/lib/* | sort -h | tail -20 2>&1 | tee /output/sizes_log
 for f in /tmp/live-build/chroot/usr/lib/*; do
-  du -sh $f/* | sort -h | tail -20
+  du -sh $f/* | sort -h | tail -20 2>&1 | tee /output/sizes_log
 done
 
-du -hs /opt/*
+du -hs /opt/* 2>&1 | tee /output/sizes_log
 
 if [ -f binary/live/filesystem.squashfs ]; then
   echo "================================"
@@ -190,4 +187,3 @@ else
 fi
 
 ls -lh /output/
-exit
