@@ -2,3 +2,10 @@
 set -e
 
 apt install kos-theme kos-kvantum-theme plymouth-theme-kos oreo-purple-cursors tela-circle-dracula-icons kos-sounds -y
+
+update-alternatives --install /usr/share/icons/default/index.theme \
+    x-cursor-theme \
+    /usr/share/icons/oreo_purple_cursors/cursor.theme \
+    100
+update-alternatives --set x-cursor-theme \
+    /usr/share/icons/oreo_purple_cursors/cursor.theme

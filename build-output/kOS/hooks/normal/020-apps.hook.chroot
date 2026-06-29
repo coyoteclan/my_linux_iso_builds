@@ -18,7 +18,7 @@ echo "Adding wine repo"
 mkdir -pm755 /etc/apt/keyrings
 wget -O - https://dl.winehq.org/wine-builds/winehq.key | gpg --dearmor -o /etc/apt/keyrings/winehq-archive.key -
 dpkg --add-architecture i386
-wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/dists/trixie/winehq-trixie.sources
+wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/dists/trixie/winehq-resolute.sources
 
 echo "Adding vscodium repo"
 wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg \
@@ -36,16 +36,12 @@ Signed-by: /etc/apt/keyrings/vscodium-archive-keyring.gpg
 EOF
 
 echo "Adding media-downloader repo"
-echo 'deb http://download.opensuse.org/repositories/home:/obs_mhogomchungu/Debian_13/ /' | tee /etc/apt/sources.list.d/home:obs_mhogomchungu.list
-curl -fsSL https://download.opensuse.org/repositories/home:obs_mhogomchungu/Debian_13/Release.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/home_obs_mhogomchungu.gpg > /dev/null
+echo 'deb http://download.opensuse.org/repositories/home:/obs_mhogomchungu/xUbuntu_25.10/ /' | sudo tee /etc/apt/sources.list.d/home:obs_mhogomchungu.list
+curl -fsSL https://download.opensuse.org/repositories/home:obs_mhogomchungu/xUbuntu_25.10/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_obs_mhogomchungu.gpg > /dev/null
 
 echo "Adding brave repo"
 curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
-
-echo "Adding lutris repo"
-echo 'deb http://download.opensuse.org/repositories/home:/strycore:/lutris/Debian_13/ /' | tee /etc/apt/sources.list.d/home:strycore:lutris.list
-curl -fsSL https://download.opensuse.org/repositories/home:strycore:lutris/Debian_13/Release.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/home_strycore_lutris.gpg > /dev/null
 
 echo "Adding firefox repo"
 curl -fsSL https://packages.mozilla.org/apt/repo-signing-key.gpg | gpg --dearmor -o /etc/apt/keyrings/mozilla.gpg
@@ -53,7 +49,7 @@ echo "deb [signed-by=/etc/apt/keyrings/mozilla.gpg] https://packages.mozilla.org
 
 apt update
 apt install -t voltage calamares calamares-settings-kos -y
-apt-mark hold calamares calamares-data libcalamares3.3 libcalamaresui3.3
+apt-mark hold calamares calamares-data libcalamares3.3 libcalamaresui3.3 snapd
 apt install -t mozilla firefox-esr -y
 apt install kazamos-desktop-base donatepage rustdesk supertuxkart-mini -y
 
