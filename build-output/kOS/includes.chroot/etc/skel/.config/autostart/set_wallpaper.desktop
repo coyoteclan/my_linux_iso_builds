@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Set Wallpaper
-Exec=/usr/local/bin/kos-set-wallpaper
-Hidden=false
-NoDisplay=true
-X-GNOME-Autostart-enabled=true
