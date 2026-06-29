@@ -100,6 +100,8 @@ sed -i "s/@XORG_HWE/$XORG_HWE/" /output/kOS/packages.list
 
 if [ "$INSTALL_WINE" = "yes" ]; then
     sed -i "s/@WINE/WINE=yes/" /output/kOS/hooks/normal/020-apps.hook.chroot
+else
+    sed -i "s/@WINE/WINE=no/" /output/kOS/hooks/normal/020-apps.hook.chroot
 fi
 
 mkdir -p config/package-lists
