@@ -130,18 +130,18 @@ echo "DIAGNOSTIC: Chroot size breakdown"
 echo "================================"
 du -sh /tmp/live-build/chroot/* | sort -h | tail -30 2>&1 | tee /output/sizes_log1
 du -sh /tmp/live-build/chroot/usr/share/* | sort -h | tail -20 2>&1 | tee /output/sizes_log2
-for f in /tmp/live-build/chroot/usr/share/*; do
-  du -sh $f/* | sort -h | tail -20 >> /output/sizes_log3
-done
+#for f in /tmp/live-build/chroot/usr/share/*; do
+#  du -sh $f/* | sort -h | tail -20 >> /output/sizes_log3
+#done
 du -sh /tmp/live-build/chroot/usr/lib/* | sort -h | tail -20 2>&1 | tee /output/sizes_log4
-for f in /tmp/live-build/chroot/usr/lib/*; do
-  du -sh $f/* | sort -h | tail -20 >> /output/sizes_log5
-done
+#for f in /tmp/live-build/chroot/usr/lib/*; do
+#  du -sh $f/* | sort -h | tail -20 >> /output/sizes_log5
+#done
 
 du -hs /tmp/live-build/chroot/opt/* 2>&1 | tee /output/sizes_log6
-for f in /tmp/live-build/chroot/opt/*; do
-  du -sh $f/* | sort -h | tail -20 >> /output/sizes_log7
-done
+#for f in /tmp/live-build/chroot/opt/*; do
+#  du -sh $f/* | sort -h | tail -20 >> /output/sizes_log7
+#done
 
 if [ -f binary/live/filesystem.squashfs ]; then
   echo "================================"
