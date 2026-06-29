@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+#@WINE
+
 #echo "Installing KDENLIVE"
 #am install kdenlive > /dev/null 2>&1
 #echo "KDENLIVE Installed"
@@ -57,6 +59,12 @@ cp /etc/skel/.face /home/liveuser/
 (cd /home/liveuser;ln -sf .face .face.icon;chown -R liveuser:liveuser .face*)
 apt install libgl1:i386 libgl1-mesa-dri:i386 -y
 apt install -y unar --no-install-recommends
+
+if [ "$WINE" = "yes" ]; then
+   apt install --install-recommends winehq-stable -y
+   apt install --no-install-recommends winetricks -y
+fi
+
 echo "############ running apt autoreomve"
 apt autoremove -y
 
