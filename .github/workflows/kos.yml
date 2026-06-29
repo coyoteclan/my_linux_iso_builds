@@ -65,8 +65,13 @@ jobs:
         if [ -n "$ISO_FILE" ]; then
           #mv $ISO_FILE "kazamOS.iso"
           #ISO_FILE="kazamOS.iso"
+          if [ "$INSTALL_WINE" = "yes" ]; then
+            mv "$ISO_FILE" "${ISO_FILE%.iso}_wine.iso"
+          fi
           echo "filename=$ISO_FILE" >> $GITHUB_OUTPUT
           echo "found=true" >> $GITHUB_OUTPUT
+
+          echo "ISO_FILE=$ISO_FILE" >> $GITHUB_ENV
           
           # Additional ISO verification
           echo "ISO Details:"
@@ -90,7 +95,7 @@ jobs:
         cd build-output
         ls -lah
     
-        ISO_FILE=$(ls *.iso 2>/dev/null | head -n 1 || echo "")
+        #ISO_FILE=$(ls *.iso 2>/dev/null | head -n 1 || echo "")
         if [ -z "$ISO_FILE" ]; then
           echo "No ISO file found to split!"
           exit 1
@@ -124,7 +129,7 @@ jobs:
       run: |
         cd build-output
         ls -lah
-        md5sum $ISO_FILE* | tee kazamOS_md5sum.txt
+        md5sum "${ISO_FILE%.iso}"* | tee kazamOS_md5sum.txt
         timestamp=$(date +%H.%M_%d-%B-%Y-%Z)
         # copy the iso to remote
         for f in "${ISO_FILE%.iso}"*; do
