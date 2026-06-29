@@ -63,8 +63,8 @@ jobs:
         cd build-output
         ISO_FILE=$(ls *.iso 2>/dev/null | head -n 1 || echo "")
         if [ -n "$ISO_FILE" ]; then
-          mv $ISO_FILE "kazamOS.iso"
-          ISO_FILE="kazamOS.iso"
+          #mv $ISO_FILE "kazamOS.iso"
+          #ISO_FILE="kazamOS.iso"
           echo "filename=$ISO_FILE" >> $GITHUB_OUTPUT
           echo "found=true" >> $GITHUB_OUTPUT
           
@@ -124,10 +124,10 @@ jobs:
       run: |
         cd build-output
         ls -lah
-        md5sum kazamOS* | tee kazamOS_md5sum.txt
+        md5sum $ISO_FILE* | tee kazamOS_md5sum.txt
         timestamp=$(date +%H.%M_%d-%B-%Y-%Z)
         # copy the iso to remote
-        for f in kazamOS*; do
+        for f in "${ISO_FILE%.iso}"*; do
           [ -e "$f" ] || continue
           exit
           rsync -avP \
