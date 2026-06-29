@@ -55,8 +55,8 @@ apt install kazamos-desktop-base donatepage rustdesk supertuxkart-mini -y
 
 cp /etc/skel/.face /home/liveuser/
 (cd /home/liveuser;ln -sf .face .face.icon;chown -R liveuser:liveuser .face*)
-apt install --install-recommends winehq-stable libgl1:i386 libgl1-mesa-dri:i386 -y
-apt install -y winetricks unar --no-install-recommends
+apt install libgl1:i386 libgl1-mesa-dri:i386 -y
+apt install -y unar --no-install-recommends
 echo "############ running apt autoreomve"
 apt autoremove -y
 
