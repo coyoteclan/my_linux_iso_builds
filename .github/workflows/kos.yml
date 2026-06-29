@@ -9,7 +9,7 @@ on:
         default: 'no'
         type: choice
         options:
-        - 'yee'
+        - 'yes'
         - 'no'
 
 jobs:
