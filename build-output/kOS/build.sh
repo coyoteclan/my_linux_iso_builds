@@ -98,6 +98,10 @@ lb config \
 sed -i "s/@XORG_HWE/$XORG_HWE/" /output/kOS/packages.list
 # sed -i "s/@KERNEL_HEADERS/linux-headers-$KERNEL_FLAVORS/" /output/kOS/packages.list
 
+if [ "$INSTALL_WINE" = "yes" ]; then
+    sed -i "s/@WINE/WINE=yes/" /output/kOS/hooks/normal/020-apps.hook.chroot
+fi
+
 mkdir -p config/package-lists
 cp /output/kOS/packages.list config/package-lists/custom.list.chroot
 #cp /output/kOS/binary.list config/package-lists/pool.list.binary
