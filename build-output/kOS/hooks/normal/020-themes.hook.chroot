@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-apt install kos-theme kos-kvantum-theme plymouth-theme-kos oreo-purple-cursors tela-circle-dracula-icons kos-sounds -y
+apt install kos-theme kos-kvantum-theme plymouth-theme-kos oreo-purple-cursors tela-circle-dracula-icons kos-sounds buuf-nestort-icons -y
 
 update-alternatives --install /usr/share/icons/default/index.theme \
     x-cursor-theme \
