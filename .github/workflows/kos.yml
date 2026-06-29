@@ -76,12 +76,19 @@ jobs:
         cd build-output
         . kOS/terraform.conf
 
+        for f in *.iso; do
+          newname=$(echo $f | sed "s/live-image/kazamOS-live/")
+          newname=$(echo $newname | sed "s/.hybrid//")
+          mv $f $newname
+        done
+
         ISO_FILE=$(ls *.iso 2>/dev/null | head -n 1 || echo "")
         if [ -n "$ISO_FILE" ]; then
           #mv $ISO_FILE "kazamOS.iso"
           #ISO_FILE="kazamOS.iso"
           if [ "$INSTALL_WINE" = "yes" ]; then
-            mv "$ISO_FILE" "${ISO_FILE%.iso}_wine.iso"
+            mv "$ISO_FILE" "${ISO_FILE%.iso}.wine.iso"
+            ISO_FILE="${ISO_FILE%.iso}.wine.iso"
           fi
           echo "filename=$ISO_FILE" >> $GITHUB_OUTPUT
           echo "found=true" >> $GITHUB_OUTPUT
