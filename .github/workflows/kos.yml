@@ -77,7 +77,7 @@ jobs:
         . kOS/terraform.conf
 
         for f in *.iso; do
-          newname=$(echo $f | sed "s/live-image/kazamOS-live/")
+          newname=$(echo $f | sed "s/live-image/kazamOS-$VERSION/")
           newname=$(echo $newname | sed "s/.hybrid//")
           mv $f $newname
         done
