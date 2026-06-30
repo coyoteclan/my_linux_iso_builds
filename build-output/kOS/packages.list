@@ -62,7 +62,7 @@ intel-microcode
 amd64-microcode
 
 # Fonts
-fonts-noto
+fonts-noto-core
 fonts-noto-color-emoji
 fonts-firacode
 fonts-sil-awami-nastaliq
@@ -120,5 +120,5 @@ plymouth-label
 # Games
 bzflag
 
-@XORG_HWE
+# @XORG_HWE
 # @KERNEL_HEADERS
