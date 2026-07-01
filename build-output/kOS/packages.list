@@ -118,7 +118,7 @@ plymouth-x11
 plymouth-label
 
 # Games
-bzflag
+gnome-mahjongg
 
 # @XORG_HWE
 # @KERNEL_HEADERS
