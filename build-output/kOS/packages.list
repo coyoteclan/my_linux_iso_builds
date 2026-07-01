@@ -58,6 +58,9 @@ network-manager-gnome
 
 # Firmware
 linux-firmware
+firmware-carl9170
+firmware-ath9k-htc
+atmel-firmware
 intel-microcode
 amd64-microcode
 
