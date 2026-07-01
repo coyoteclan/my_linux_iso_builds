@@ -1,9 +1,9 @@
 @import url("kos-colors.css");
 
-window, 
-window.csd, 
+window,
+window.csd,
 window.background {
-    border-radius: 0; 
+    border-radius: 0;
 }
 
 /* Remove the thick drop-shadow that sometimes renders as a blurry block on X11 compositors */
@@ -11,19 +11,10 @@ window.csd {
     box-shadow: none;
 }
 
-button {
-    border-radius: 2px;
-}
-
-modelbutton {
-    border-radius: 2px;
-}
-
-button.circular {
-    border-radius: 9999px; 
-}
-
-button.pill {
+button,
+button.pill,
+modelbutton,
+splitbutton {
     border-radius: 2px;
 }
 
@@ -31,21 +22,107 @@ popover contents {
     border-radius: 2px;
 }
 
-floating-sheet sheet {
-    border-radius: 0;
-}
-
 .boxed-list,
-.boxed-list row {
+.boxed-list row,
+.navigation-sidebar row,
+list .entry,
+list .button {
     border-radius: 2px;
 }
 
-/* The about dialog style doesn't work */
-window.dialog,
-window.messagedialog,
-window.dialog.message
-window.about,
-window.aboutdialog {
+button.circular {
+    border-radius: 9999px;
+}
+
+dialog-host sheet {
     border-radius: 0;
 }
 
+tabboxchild, tab {
+    border-radius: 2px;
+}
+
+entry {
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+entry:focus-within {
+    border-image: radial-gradient(circle closest-corner at center calc(100% - 1px), @accent_bg_color 100%, transparent 100%) 2/0 0 2px;
+    box-shadow: none;
+    background-color: rgba(255, 255, 255, 0.1168);
+    outline: none;
+}
+
+switch {
+    transition: all 75ms cubic-bezier(0, 0, 0.2, 1);
+    margin: 6px 0;
+    padding: 0 2px;
+    border: 5px solid transparent;
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 0.26);
+    background-clip: padding-box;
+    font-size: 0;
+}
+switch:checked {
+    background-color: rgba(167, 123, 205, 0.5);
+}
+switch:disabled {
+    opacity: 0.5;
+}
+switch > image {
+    margin: -8px;
+    -gtk-icon-transform: scale(0);
+}
+switch > slider {
+    transition: all 75ms cubic-bezier(0, 0, 0.2, 1);
+    min-width: 20px;
+    min-height: 20px;
+    margin: -3px -2px;
+    border-radius: 9999px;
+    box-shadow: 0 0 0 10px transparent, 0 0 0 -10px rgba(255, 255, 255, 0.12), 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    background-color: rgb(160.2, 160.2, 160.2);
+}
+switch:hover > slider {
+    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.08), 0 0 0 -5px rgba(255, 255, 255, 0.12), 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+switch:focus > slider {
+    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.08), 0 0 0 -5px rgba(255, 255, 255, 0.12), 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+switch:active > slider {
+    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.08), 0 0 0 5px rgba(255, 255, 255, 0.12), 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+switch:checked > slider {
+    background-color: #a77bcd;
+}
+switch:checked:hover > slider {
+    box-shadow: 0 0 0 5px rgba(167, 123, 205, 0.08), 0 0 0 -5px rgba(167, 123, 205, 0.12), 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+switch:checked:focus > slider {
+    box-shadow: 0 0 0 5px rgba(167, 123, 205, 0.08), 0 0 0 -5px rgba(167, 123, 205, 0.12), 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+switch:checked:active > slider {
+    box-shadow: 0 0 0 5px rgba(167, 123, 205, 0.08), 0 0 0 5px rgba(167, 123, 205, 0.12), 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+toggle-group, toggle-group toggle {
+    border-radius: 2px;
+}
+
+toast {
+    border-radius: 4px;
+}
+
+wrap-box .tag {
+    border-radius: 2px;
+}
+
+scale trough highlight, scale slider {
+    background-color: @accent_bg_color;
+}
+
+.spinner image {
+    color: @accent_bg_color;
+}
