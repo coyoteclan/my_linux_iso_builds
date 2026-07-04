@@ -1,0 +1,26 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<channel name="gsettings" version="1.0">
+  <property name="org" type="empty">
+    <property name="gnome" type="empty">
+      <property name="desktop" type="empty">
+        <property name="sound" type="empty">
+          <property name="event-sounds" type="bool" value="true"/>
+          <property name="input-feedback-sounds" type="bool" value="true"/>
+          <property name="theme-name" type="string" value="kazamOS"/>
+        </property>
+        <property name="interface" type="empty">
+          <property name="color-scheme" type="string" value="prefer-dark"/>
+          <property name="gtk-theme" type="string" value="kOS-dark"/>
+          <property name="icon-theme" type="string" value="Tela-circle-dracula-dark"/>
+          <property name="cursor-size" type="int" value="22"/>
+          <property name="cursor-theme" type="string" value="oreo_purple_cursors"/>
+          <property name="font-name" type="string" value="PakType Naskh Basic Bold 12"/>
+        </property>
+      </property>
+      <property name="Mahjongg" type="empty">
+        <property name="background-color" type="string" value="dark"/>
+      </property>
+    </property>
+  </property>
+</channel>

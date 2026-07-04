@@ -23,7 +23,10 @@ sed -i 's/# ur_PK/ur_PK/g' /etc/locale.gen
 locale-gen
 update-locale
 
+sed -i 's|Urdu Nastaliq Unicode|PakType Naskh Basic|g' /usr/share/fontconfig/conf.avail/65-nonlatin.conf
+
 systemctl enable first-boot-exec.service
+systemctl disable systemd-networkd || echo "##### Failed to disable systemd-networkd"
 
 sed -i 's/Hidden=true/Hidden=false/' /etc/xdg/autostart/xfce4-clipman-plugin-autostart.desktop
 
