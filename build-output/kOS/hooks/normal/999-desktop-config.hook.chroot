@@ -13,8 +13,8 @@ wget -q https://kazam.pages.dev/public/mar.12.26/desktop_includes.7z
 p7zip -d desktop_includes.7z
 cp -r desktop_includes/* /etc/skel/
 ls /etc/skel
-cp -r /etc/skel/* /home/liveuser/
-chown -R liveuser:liveuser /home/liveuser/*
+cp -r /etc/skel/* /home/user/
+chown -R user:user /home/user/*
 
 rm -rf desktop_includes*
 
