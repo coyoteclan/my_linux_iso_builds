@@ -5,4 +5,7 @@ useradd -m -s /bin/bash -G sudo,video,audio user
 echo "user:live" | chpasswd
 echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
+chown root:root /etc/netplan/01-network-manager-all-eth.yaml
+chmod 600 /etc/netplan/01-network-manager-all-eth.yaml
+
 systemctl enable NetworkManager

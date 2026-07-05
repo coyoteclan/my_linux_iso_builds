@@ -14,29 +14,9 @@ gtk-update-icon-cache -f -t /usr/share/icons/hicolor
 chmod -R 757 /opt/am
 
 # fix netplan not allowing network manager to manager network on ubuntu
-mkdir -p /etc/netplan
-cat /etc/netplan/01-network-manager-all.yaml << 'EOF'
-network:
-  version: 2
-  renderer: NetworkManager
-  ethernets:
-    all-eth:
-      match:
-        name: "en*"
-      dhcp4: true
-  wifis:
-    all-wifi:
-      match:
-        name: "wl*"
-      dhcp4: true
 
-EOF
-
-chown root:root /etc/netplan/01-network-manager-all.yaml
-chmod 600 /etc/netplan/01-network-manager-all.yaml
-
-netplan generate
-systemctl restart NetworkManager
+#netplan generate
+#systemctl restart NetworkManager
 
 # local repo with bootloader packages
 if ! loginctl list-users | grep -qw user; then
@@ -46,5 +26,5 @@ if ! loginctl list-users | grep -qw user; then
 fi
 
 systemctl disable first-boot-exec.service || true
-rm /etc/systemd/system/first-boot-exec.service
-rm /usr/local/bin/first-boot-exec
+#rm /etc/systemd/system/first-boot-exec.service
+#rm /usr/local/bin/first-boot-exec
