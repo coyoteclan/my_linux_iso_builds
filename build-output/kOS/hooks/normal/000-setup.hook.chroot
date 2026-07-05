@@ -5,5 +5,4 @@ useradd -m -s /bin/bash -G sudo,video,audio user
 echo "user:live" | chpasswd
 echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-netplan generate
 systemctl enable NetworkManager
