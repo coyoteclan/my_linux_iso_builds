@@ -14,6 +14,7 @@ thunar-archive-plugin
 thunar-media-tags-plugin
 gvfs
 gvfs-backends
+gvfs-fuse
 parole
 quodlibet
 xfce4-datetime-plugin
@@ -75,7 +76,7 @@ fonts-paktype
 drawing
 ffmpeg
 gparted
-qalculate-gtk
+galculator
 engrampa
 sudo
 btop
@@ -96,7 +97,6 @@ synaptic
 systemd-timesyncd
 zenity
 dbus-x11
-icoextract
 icoextract-thumbnailer
 ffmpegthumbnailer
 tumbler-plugins-extra
@@ -107,6 +107,7 @@ qt-style-kvantum
 webp-pixbuf-loader
 apt-utils
 tree
+software-properties-gtk
 
 # LightDM
 lightdm
