@@ -120,10 +120,6 @@ wrap-box .tag {
     border-radius: 2px;
 }
 
-scale trough highlight, scale slider {
-    background-color: @accent_bg_color;
-}
-
 .spinner image {
     color: @accent_bg_color;
 }
