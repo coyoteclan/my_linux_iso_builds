@@ -67,13 +67,27 @@ amd64-microcode
 fonts-noto-core
 fonts-noto-color-emoji
 fonts-firacode
+fonts-firacode-nerd
 fonts-sil-awami-nastaliq
 fonts-liberation
 fonts-nafees
 fonts-paktype
 
-# Utils
+# Shell
+zsh
+zsh-common
+zsh-syntax-highlighting
+zsh-autosuggestions
+
+# Graphics
 drawing
+
+# Configuration
+qt5ct
+qt6ct
+qt-style-kvantum
+
+# Utils
 ffmpeg
 gparted
 galculator
@@ -101,9 +115,6 @@ icoextract-thumbnailer
 ffmpegthumbnailer
 tumbler-plugins-extra
 xdg-desktop-portal-gtk
-qt5ct
-qt6ct
-qt-style-kvantum
 webp-pixbuf-loader
 apt-utils
 tree

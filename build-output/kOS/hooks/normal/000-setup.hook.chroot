@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-useradd -m -s /bin/bash -G sudo,video,audio user
+useradd -m -s /bin/zsh -G sudo,video,audio user
 echo "user:live" | chpasswd
 echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
