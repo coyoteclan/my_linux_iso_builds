@@ -118,6 +118,7 @@ webp-pixbuf-loader
 apt-utils
 tree
 software-properties-common
+extrepo
 
 # LightDM
 lightdm
