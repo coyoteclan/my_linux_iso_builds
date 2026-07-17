@@ -18,6 +18,8 @@ chown -R user:user /home/user/*
 
 rm -rf desktop_includes*
 
+apt install fonts-firacode-nerd -y
+
 sed -i 's/#ur_PK/ur_PK/g' /etc/locale.gen
 sed -i 's/# ur_PK/ur_PK/g' /etc/locale.gen
 locale-gen
