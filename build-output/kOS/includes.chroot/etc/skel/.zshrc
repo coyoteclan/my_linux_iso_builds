@@ -22,3 +22,13 @@ setopt HIST_IGNORE_SPACE    # don't save commands starting with space
 
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Title
+preexec() {
+  print -Pn "\e]0;$1\a"
+}
+precmd() {
+  print -Pn "\e]0;%~\a"
+}
+
+termom
