@@ -49,11 +49,13 @@ curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-
 #curl -fsSL https://packages.mozilla.org/apt/repo-signing-key.gpg | gpg --dearmor -o /etc/apt/keyrings/mozilla.gpg
 #echo "deb [signed-by=/etc/apt/keyrings/mozilla.gpg] https://packages.mozilla.org/apt mozilla main" > /etc/apt/sources.list.d/mozilla.list
 
+echo "Enabling librewolf repo with extrepo"
+extrepo enable librewolf && extrepo update librewolf
+
 apt update
 apt install -t voltage calamares calamares-settings-kos xournalpp -y
 apt-mark hold calamares calamares-data libcalamares3.3 libcalamaresui3.3 snapd
 
-extrepo enable librewolf && extrepo update librewolf
 apt install kazamos-desktop-base donatepage rustdesk supertuxkart-mini termom librewolf -y
 
 cp /etc/skel/.face /home/user/
