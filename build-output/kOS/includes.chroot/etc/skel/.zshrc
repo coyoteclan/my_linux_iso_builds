@@ -31,4 +31,4 @@ precmd() {
   print -Pn "\e]0;%~\a"
 }
 
-termom
+/usr/bin/termom
