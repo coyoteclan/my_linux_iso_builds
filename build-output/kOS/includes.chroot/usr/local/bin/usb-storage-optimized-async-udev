@@ -1,0 +1,126 @@
+#!/bin/sh
+
+# udev rule for usb-storage-optimized-async
+
+# Limit the amount of writing cache in RAM for USB storage devices, to ensure that writing speed is correct, as opposed to async
+# sync is too slow & has a risk for deteorating USB storage health, so that's why this balanced solution is being done
+#
+# Credits:
+# - Megavolt (from Manjaro forums): for making it possible through his benchmarks, testings, findings & initial udev rule + script
+
+log_location="/tmp/usb-storage-optimized-async-udev.log"
+MAX_LOG_LINES="${MAX_LOG_LINES:-1000}"
+
+block_device="${1}"
+usb_vendor="${2}"
+usb_product="${3}"
+
+_truncate_log() {
+  [ ! -f "${log_location}" ] && return
+  if [ "${MAX_LOG_LINES}" -le 0 ]; then return; fi
+  awk --inplace -v keep="${MAX_LOG_LINES}" '
+  {
+    buf[NR%keep] = $0
+  }
+  END {
+    start = (NR>keep ? NR-keep+1 : 1)
+    for(i=start;i<=NR;i++) print buf[i%keep]
+  }' "${log_location}" 2>/dev/null || return
+}
+
+_log() {
+  if command -v date 1>/dev/null; then
+    date="[$(date "+%a %b %e %H:%M:%S %Z %Y")]: "
+  else
+    date=""
+  fi
+  echo "${date}${1}"
+  echo "${date}${1}" >> "${log_location}"
+  _truncate_log
+}
+
+dependencies="
+  lsusb
+  awk
+  bc
+"
+missing_dependencies=""
+missing_dep_check=0
+for dep in ${dependencies}; do
+  if ! command -v "${dep}" 1>/dev/null; then
+    missing_dep_check=1
+    if [ -z "${missing_dependencies}" ]; then
+      missing_dependencies="$dep"
+    else
+      missing_dependencies="${missing_dependencies} ${dep}"
+    fi
+  fi
+done
+if [ "$missing_dep_check" = 1 ]; then
+  _log "Missing dependency/ies '${missing_dependencies}'. Cannot continue running the program."
+  _log "Please install '${missing_dependencies}' dependency/ies and try again."
+  _log "Exiting..."
+  exit 1
+fi
+
+_cat() {
+  while IFS= read -r line; do
+      printf '%s\n' "$line"
+  done < "${1}"
+}
+
+# Get kernel version of the running system
+if [ -r "/proc/sys/kernel/osrelease" ]; then
+  read -r release < "/proc/sys/kernel/osrelease"
+  kernel_ver="$release"
+else
+  kernel_ver="undetected"
+fi
+
+if [ ! -e "/sys/block/${block_device}/bdi/max_bytes" ]; then
+  _log "Your kernel version '${kernel_ver}' doesn't support the 'max_bytes' BDI value. At least Linux 6.1 kernel is required."
+  _log "Exiting..."
+  exit 1
+fi
+
+# Determine current USB device speed, as ATTRS{speed} is unreliable - it detects xHCI USB speed instead of proper USB speed
+current_usb_speed=$(lsusb -t -v | awk -v vendor_id="${usb_vendor}" -v product_id="${usb_product}" '$0 ~ vendor_id ":" product_id {split(prev, a, " "); print a[length(a)]} {prev=$0}' | awk '{gsub(/[a-zA-Z]/, ""); print}')
+
+if [ -z "${current_usb_speed}" ]; then
+  _log "Current USB speed for this USB storage device is empty, skiping this USB storage device with ID '${usb_vendor}:${usb_product}', path '/sys/block/${block_device}'"
+  _log "Exiting..."
+  exit 1
+fi
+
+if [ $(echo "${current_usb_speed}" | awk 'END {print NR}') -gt 1 ]; then
+  _log "There are multiple strings of current USB speed for this USB storage device, skiping this USB storage device with ID '${usb_vendor}:${usb_product}', path '/sys/block/${block_device}'"
+  _log "Exiting..."
+  exit 1
+fi
+
+if ! echo "${current_usb_speed}" | awk '$0 ~ /^-?[0-9]+(\.[0-9]+)?$/ {found=1} END {exit !found}'; then
+  _log "Current USB speed for this USB storage device is not in integer or float values, skiping this USB storage device with ID '${usb_vendor}:${usb_product}', path '/sys/block/${block_device}'"
+  _log "Exiting..."
+  exit 1
+fi
+
+buffer_time="0.05"
+safety_factor="1.3"
+max_bytes_unrounded=$(echo "((${current_usb_speed} / 8) * ${buffer_time} * ${safety_factor}) * 1024 * 1024" | bc)
+max_bytes=$(echo "(${max_bytes_unrounded}+0.5)/1" | bc)
+# General max_bytes ideal value results (thanks to MegaVolt from Manjaro forums):
+# 12.5MB/s: 62915
+# 100MB/s: 817889
+# 500MB/s: 4225761
+# 1000MB/s: 8514437
+# 5000MB/s: 42593157
+# 10000MB/s: 85196800
+
+# apply bandwidth defined value
+echo "1" > "/sys/block/${block_device}/bdi/strict_limit"
+echo "${max_bytes}" > "/sys/block/${block_device}/bdi/max_bytes"
+_log "Applied the usb-storage-optimized-async fix for USB storage device with ID '${usb_vendor}:${usb_product}', path '/sys/block/${block_device}'"
+_log "Calculated 'max_bytes' value: ${max_bytes}"
+_log "Note that the applied 'max_bytes' value won't match exactly to the calculated value, but it will be rounded up to be close"
+_log "/sys/block/${block_device}/bdi/strict_limit = $(_cat /sys/block/${block_device}/bdi/strict_limit)"
+_log "/sys/block/${block_device}/bdi/max_bytes = $(_cat /sys/block/${block_device}/bdi/max_bytes)"

@@ -87,6 +87,9 @@ qt6ct
 qt-style-kvantum
 
 # Utils
+usbutils
+gawk
+bc
 ffmpeg
 gparted
 mate-calc

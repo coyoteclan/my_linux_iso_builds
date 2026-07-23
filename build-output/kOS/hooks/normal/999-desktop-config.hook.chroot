@@ -30,6 +30,11 @@ sed -i 's|Urdu Nastaliq Unicode|PakType Naskh Basic|g' /usr/share/fontconfig/con
 systemctl enable first-boot-exec.service
 systemctl disable systemd-networkd || echo "##### Failed to disable systemd-networkd"
 
+
+chmod +x /usr/local/bin/usb-storage-optimized-async-udev
+chmod +x /usr/local/bin/usb-storage-optimized-async-service
+systemctl enable usb-storage-optimized-async-service.service
+
 sed -i 's/Hidden=true/Hidden=false/' /etc/xdg/autostart/xfce4-clipman-plugin-autostart.desktop
 
 cat /etc/os-release
